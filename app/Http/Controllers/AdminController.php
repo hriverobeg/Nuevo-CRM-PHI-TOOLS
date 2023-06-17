@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Traits\RedirectTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    use RedirectTrait;
+
+    protected $page = 'admin';
+
     /**
      * Display a listing of the resource.
      */
@@ -30,7 +36,13 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Admin::create([
+            'nombre' => $request->nombre,
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+
+        return $this->redirectIndex($this->page);
     }
 
     /**
@@ -54,7 +66,25 @@ class AdminController extends Controller
      */
     public function update(Request $request, Admin $admin)
     {
-        //
+        if($request->has('nombre')){
+            $admin->nombre = $request->nombre;
+        }
+
+        if($request->has('email')){
+            $admin->email = $request->email;
+        }
+
+        if($request->has('password') && !empty($request->password)){
+            $admin->password = Hash::make($request->password);
+        }
+
+        if (!$admin->isDirty()) {
+            // return $this->redirectDirty($admin);
+        }
+
+        $admin->save();
+
+        return $this->redirectIndex($this->page);
     }
 
     /**
@@ -62,6 +92,8 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        //
+        $admin->delete();
+
+        return $this->redirectIndex($this->page);
     }
 }
