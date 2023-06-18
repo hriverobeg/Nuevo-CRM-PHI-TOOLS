@@ -1,3 +1,4 @@
+@props(['titulo'])
 <div x-data="list">
 
   <x-modaldelete />
@@ -16,7 +17,7 @@
 
   <div x-data="striped">
     <div class="panel">
-      <h5 class="mb-5 text-lg font-semibold dark:text-white-light md:absolute md:top-[25px] md:mb-0">Administradores</h5>    
+      <h5 class="mb-5 text-lg font-semibold dark:text-white-light md:absolute md:top-[25px] md:mb-0">{{ $titulo }}</h5>    
       <table id="tableStripe" class="table-striped"></table>
     </div>
   </div>

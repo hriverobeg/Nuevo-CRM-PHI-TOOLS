@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-<x-table>
+<x-table titulo="Administradores">
   @include('pages.admin.form')
 </x-table>
 @endsection

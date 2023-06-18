@@ -57,7 +57,7 @@
           <li class="nav-item">
               <ul>
                   <li class="nav-item">
-                      <a href="apps-chat.html" class="group">
+                      <a href="/admin" class="group {{ request()->is('admin') ? 'active' : ''}}">
                           <div class="flex items-center">
                               <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
                                   viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,7 +74,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="apps-mailbox.html" class="group">
+                      <a href="/clientes" class="group">
                           <div class="flex items-center">
                               <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
                                   viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
