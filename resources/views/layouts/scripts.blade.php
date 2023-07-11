@@ -8,9 +8,6 @@
 <script src="/assets/js/simple-datatables.js"></script>
 <script>
   document.addEventListener('alpine:init', () => {
-
-      Alpine.data('header')
-
       // main section
       Alpine.data('scrollToTop', () => ({
           showTopButton: false,

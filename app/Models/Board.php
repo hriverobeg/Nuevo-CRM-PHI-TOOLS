@@ -14,4 +14,9 @@ class Board extends Model
     protected $fillable = [
         'nombre', 'nivel_id'
     ];
+
+    public function cotizaciones()
+    {
+        return $this->hasMany(Cotizacion::class);
+    }
 }

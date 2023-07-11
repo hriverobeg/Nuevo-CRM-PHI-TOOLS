@@ -18,7 +18,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $list = Admin::all();
+        $list = Admin::admin()->get();
 
         return view('pages.admin.wrapper', compact('list'));
     }
@@ -39,7 +39,8 @@ class AdminController extends Controller
         Admin::create([
             'nombre' => $request->nombre,
             'email' => $request->email,
-            'password' => $request->password
+            'password' => Hash::make($request->password),
+            'nivel_id' => 1
         ]);
 
         return $this->redirectIndex($this->page);

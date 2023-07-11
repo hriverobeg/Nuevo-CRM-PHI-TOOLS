@@ -13,10 +13,16 @@ return new class extends Migration
     {
         Schema::create('admin', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('nivel_id')->constrained(
+                table: 'nivel',
+                indexName: 'admin_nivel_id'
+            );
             $table->string('nombre');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('remember_token', 100)->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('empresa')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

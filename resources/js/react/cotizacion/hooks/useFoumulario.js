@@ -31,8 +31,38 @@ const defaultValores = {
   isAlivioFiscal: false,
 };
 
+const ejemplo1 = {
+  tituloCotizacion: '4000',
+  nombreActivo: 'Item 1',
+  anio: 2023,
+  valorActivo: 1000000,
+  anticipo: 190000,
+  anticipoPorcentaje: 19,
+  comisionPorApertura: 25000,
+  comisionPorcentaje: 2.5,
+  interes: 27,
+  valorSeguro: 4000,
+  tipoActivo: 'B-std',
+  otro: '',
+  valorResidual24: 45,
+  valorResidual36: 40,
+  valorResidual48: 35,
+  valorResidual60: 30,
+  valorResidual24Cantidad: 0,
+  valorResidual36Cantidad: 0,
+  valorResidual48Cantidad: 0,
+  valorResidual60Cantidad: 0,
+  isTelematics: true,
+  isSeguro: true,
+  is24: true,
+  is36: false,
+  is48: false,
+  is60: true,
+  isAlivioFiscal: true,
+};
+
 const useFoumulario = ({ row }) => {
-  const [form, setForm] = useState(row ?? defaultValores);
+  const [form, setForm] = useState(ejemplo1 ?? defaultValores);
 
   function onChangeForm({ target: { name, value } }) {
     setForm({

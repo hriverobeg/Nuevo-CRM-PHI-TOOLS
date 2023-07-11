@@ -17,7 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [AuthController::class, 'login']);
-Route::resource('/admin', AdminController::class);
-Route::resource('/clientes', ClienteController::class);
-Route::resource('/cotizaciones', CotizacionController::class);
+Route::get('/', [AuthController::class, 'login'])->name('login');
+Route::post('/', [AuthController::class, 'loginPOST'])->name('loginPOST');
+
+Route::middleware('auth')->group(function() {
+  Route::resource('/admin', AdminController::class);
+  Route::resource('/clientes', ClienteController::class);
+  Route::resource('/cotizaciones', CotizacionController::class);
+});
+

@@ -30,15 +30,19 @@
                 <div class="panel m-6 w-full max-w-lg sm:w-[480px]">
                     <h2 class="mb-3 text-2xl font-bold">Login</h2>
                     <p class="mb-7">Escribe tu email y contraseña</p>
-                    <form class="space-y-5">
+                    <form action="" method="POST" class="space-y-5">
+                        @csrf
                         <div>
                             <label for="email">Email</label>
-                            <input id="email" type="email" class="form-input" placeholder="Escribe tu email" />
+                            <input id="email" name="email" type="email" class="form-input" placeholder="Escribe tu email" value="{{ old('email') }}" />
                         </div>
                         <div>
                             <label for="password">Password</label>
-                            <input id="password" type="password" class="form-input" placeholder="Escribe tu contraseña" />
+                            <input id="password" name="password" type="password" class="form-input" placeholder="Escribe tu contraseña" />
                         </div>
+                        @if($errors->any())
+                        <p class="text-danger">{{$errors->first()}}</p>
+                        @endif
                         <button type="submit" class="btn btn-primary w-full">Login</button>
                     </form>
                 </div>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Cliente;
 use App\Traits\RedirectTrait;
+use Hash;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -18,7 +20,7 @@ class ClienteController extends Controller
 
     public function index()
     {
-        $list = Cliente::all();
+        $list = Admin::cliente()->get();
 
         return view('pages.clientes.wrapper', compact('list'));
     }
@@ -36,11 +38,13 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        Cliente::create([
+        Admin::create([
             'nombre' => $request->nombre,
+            'password' => Hash::make($request->password),
             'email' => $request->email,
             'telefono' => $request->telefono,
-            'empresa' => $request->empresa
+            'empresa' => $request->empresa,
+            'nivel_id' => 2
         ]);
 
         return $this->redirectIndex($this->page);

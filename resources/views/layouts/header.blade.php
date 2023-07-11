@@ -2,8 +2,8 @@
   <div class="shadow-sm">
     <div class="relative flex w-full items-center bg-white px-5 py-2.5 dark:bg-[#0e1726]">
         <div class="horizontal-logo flex items-center justify-between ltr:mr-2 rtl:ml-2 lg:hidden">
-            <a href="index.html" class="main-logo flex shrink-0 items-center">
-                <img class="inline w-8 ltr:-ml-1 rtl:-mr-1" src="assets/images/logo.svg" alt="image" />
+            <a href="/" class="main-logo flex shrink-0 items-center">
+                <img class="inline w-8 ltr:-ml-1 rtl:-mr-1" src="/assets/images/logo.svg" alt="image" />
                 <span
                     class="hidden align-middle text-2xl font-semibold transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline"
                     >VRISTO</span
@@ -23,7 +23,6 @@
             </a>
         </div>
         <div
-            x-data="header"
             class="flex items-center space-x-1.5 ltr:ml-auto rtl:mr-auto rtl:space-x-reverse dark:text-[#d0d2d6] sm:flex-1 ltr:sm:ml-0 sm:rtl:mr-0 lg:space-x-2"
         >
             <div class="sm:ltr:mr-auto sm:rtl:ml-auto"></div>
@@ -112,7 +111,7 @@
                     <span
                         ><img
                             class="h-9 w-9 rounded-full object-cover saturate-50 group-hover:saturate-100"
-                            src="assets/images/user-profile.jpeg"
+                            src="/assets/images/user-profile.jpeg"
                             alt="image"
                     /></span>
                 </a>
@@ -126,7 +125,7 @@
                     <li>
                         <div class="flex items-center px-4 py-4">
                             <div class="flex-none">
-                                <img class="h-10 w-10 rounded-md object-cover" src="assets/images/user-profile.jpeg" alt="image" />
+                                <img class="h-10 w-10 rounded-md object-cover" src="/assets/images/user-profile.jpeg" alt="image" />
                             </div>
                             <div class="truncate ltr:pl-4 rtl:pr-4">
                                 <h4 class="text-base">
