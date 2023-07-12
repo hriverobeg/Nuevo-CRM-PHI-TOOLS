@@ -1,5 +1,4 @@
 const disabledBoard = (nivelId, isAdmin) => {
-  console.log({nivelId, isAdmin})
   if (isAdmin) return false
 
   if (nivelId === 1 && isAdmin) {
@@ -35,7 +34,7 @@ document.addEventListener('alpine:init', () => {
               const toId = to.getAttribute('data-id')
               
               if (toId > fromId) {
-                fetch( `/api/cotizaciones/${cotizacionId}`, {
+                fetch( `/api/cotizacion/${cotizacionId}`, {
                   headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'

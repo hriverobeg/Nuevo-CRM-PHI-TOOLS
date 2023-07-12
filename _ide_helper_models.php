@@ -24,12 +24,15 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|Admin admin()
  * @method static \Illuminate\Database\Eloquent\Builder|Admin cliente()
  * @method static \Illuminate\Database\Eloquent\Builder|Admin newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Admin newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Admin query()
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereEmpresa($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereId($value)
@@ -39,6 +42,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereTelefono($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin withoutTrashed()
  */
 	class Admin extends \Eloquent {}
 }
@@ -64,17 +69,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Board whereUpdatedAt($value)
  */
 	class Board extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\Cliente
- *
- * @method static \Illuminate\Database\Eloquent\Builder|Cliente newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Cliente newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Cliente query()
- */
-	class Cliente extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -114,10 +108,11 @@ namespace App\Models{
  * @property int $isAlivioFiscal
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read mixed $fecha
  * @method static \Illuminate\Database\Eloquent\Builder|Cotizacion newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Cotizacion newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cotizacion onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Cotizacion query()
  * @method static \Illuminate\Database\Eloquent\Builder|Cotizacion whereAdminId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cotizacion whereAnio($value)
@@ -153,6 +148,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Cotizacion whereValorResidual60($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cotizacion whereValorResidual60Cantidad($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cotizacion whereValorSeguro($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cotizacion withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cotizacion withoutTrashed()
  */
 	class Cotizacion extends \Eloquent {}
 }
@@ -180,9 +177,28 @@ namespace App\Models{
 /**
  * App\Models\Usuario
  *
+ * @property int $id
+ * @property int $admin_id
+ * @property string $nombre
+ * @property string $email
+ * @property string $telefono
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|Usuario newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Usuario newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Usuario onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Usuario query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Usuario whereAdminId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Usuario whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Usuario whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Usuario whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Usuario whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Usuario whereNombre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Usuario whereTelefono($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Usuario whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Usuario withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Usuario withoutTrashed()
  */
 	class Usuario extends \Eloquent {}
 }

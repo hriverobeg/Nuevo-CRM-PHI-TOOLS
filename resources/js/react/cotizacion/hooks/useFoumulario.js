@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { calcularResiduo, formulaComision, isValid } from "../../utils/formulas";
 
 const defaultValores = {
@@ -63,6 +63,16 @@ const ejemplo1 = {
 
 const useFoumulario = ({ row }) => {
   const [form, setForm] = useState(ejemplo1 ?? defaultValores);
+  const [token, setToken] = useState('')
+  const [clientes, setClientes] = useState([])
+  const [usuarios, setUsuarios] = useState([])
+
+  useEffect(() => {
+    setToken(document.querySelector('meta[name="csrf-token"]').content)
+    const {clientes: clients, usuarios: users} = window.Laravel
+    setClientes(clients)
+    setUsuarios(users)
+  }, [])
 
   function onChangeForm({ target: { name, value } }) {
     setForm({
@@ -175,7 +185,8 @@ const useFoumulario = ({ row }) => {
     onChangeForm,
     onChangeTipoActivo,
     onChangeFormNumber,
-    handleChangeCheckbox
+    handleChangeCheckbox,
+    token
   }
 }
 

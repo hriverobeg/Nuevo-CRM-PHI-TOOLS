@@ -2,20 +2,24 @@
 
 namespace App\Models;
 
+use App\Traits\DateFormatTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cotizacion extends Model
 {
-    use HasFactory;
+    use HasFactory, DateFormatTrait, SoftDeletes;
 
     protected $table = 'cotizacion';
 
     protected $appends = ['fecha'];
 
+    protected $dates = ['created_at', 'updated_at'];
+
     protected $fillable = [
         'usuario_id',
-        'cliente_id',
+        'admin_id',
         'board_id',
         'nombreActivo',
         'anio',
@@ -45,12 +49,4 @@ class Cotizacion extends Model
         'is60',
         'isAlivioFiscal',
     ];
-
-    public function getFechaAttribute()
-    {
-        $meses = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre");
-        $fecha = \Carbon\Carbon::parse($this->created_at);
-        $mes = $meses[($fecha->format('n')) - 1];
-        return $fecha->format('d') . ' de ' . $mes . ' del ' . $fecha->format('Y');
-    }
 }

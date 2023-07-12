@@ -9,7 +9,6 @@
   var dataLaravel = @json($list);
   var headings = ['ID', 'Nombre', 'Email', 'Acciones']
   var data = dataLaravel.map(m => ([m.id, m.nombre, m.email, m.id]))
-  var columnActionsNumber = 3
   var page = '/admin'
 
   var formData = {

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Board;
 use App\Models\Cotizacion;
+use App\Models\Usuario;
 use App\Traits\RedirectTrait;
+use Auth;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -18,11 +22,17 @@ class CotizacionController extends Controller
      */
     public function index()
     {
-        $isAdmin = false;
-        $boards = Board::with('cotizaciones')->get();
+        $auth = Auth::user();
+
+        $boards = Board::
+            with('cotizaciones')
+            ->when(!$auth->isAdmin, function (Builder $builder) use ($auth) {
+                $builder->where('cliente_id', $auth->id);
+            })
+            ->get();
         return view('pages.cotizaciones.wrapper', [
             'boards' => $boards,
-            'isAdmin' => $isAdmin
+            'isAdmin' => $auth->isAdmin
         ]);
     }
 
@@ -31,7 +41,17 @@ class CotizacionController extends Controller
      */
     public function create()
     {
-        return view('pages.cotizaciones.form');
+        $auth = Auth::user();
+
+        $usuarios = $auth->isAdmin 
+            ? Usuario::all('id', 'nombre') 
+            : Usuario::select('id', 'nombre')->where('admin_id', $auth->id)->get(); 
+
+        $clientes = $auth->isAdmin 
+            ? Admin::cliente()->get()
+            : [];
+
+        return view('pages.cotizaciones.form', compact(['usuarios', 'clientes']));
     }
 
     /**
@@ -39,10 +59,17 @@ class CotizacionController extends Controller
      */
     public function store(Request $request)
     {
+        $auth = Auth::user();
+
+        Usuario::where([
+            ['usuario_id', $request->usuario_id],
+            ['admin_id', $auth->id]
+        ])->firstOrFail();
+
         Cotizacion::create([
             'usuario_id'                => $request->usuario_id,
-            'cliente_id'                => $request->cliente_id,
-            'board_id'                  => $request->board_id,
+            'admin_id'                  => $request->admin_id ?? $auth->id,
+            'board_id'                  => 1,
             'nombreActivo'              => $request->nombreActivo,
             'anio'                      => $request->anio,
             'tituloCotizacion'          => $request->tituloCotizacion,

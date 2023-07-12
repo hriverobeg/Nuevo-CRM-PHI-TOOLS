@@ -38,6 +38,13 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'email' => 'unique:admin,email'
+            ]
+        );
+
         Admin::create([
             'nombre' => $request->nombre,
             'password' => Hash::make($request->password),
@@ -53,7 +60,7 @@ class ClienteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Cliente $cliente)
+    public function show(Admin $cliente)
     {
         //
     }
@@ -61,7 +68,7 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cliente $cliente)
+    public function edit(Admin $cliente)
     {
         //
     }
@@ -69,14 +76,10 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, Admin $cliente)
     {
         if($request->has('nombre')){
             $cliente->nombre = $request->nombre;
-        }
-
-        if($request->has('email')){
-            $cliente->email = $request->email;
         }
 
         if($request->has('telefono')){
@@ -99,7 +102,7 @@ class ClienteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(Admin $cliente)
     {
         $cliente->delete();
 

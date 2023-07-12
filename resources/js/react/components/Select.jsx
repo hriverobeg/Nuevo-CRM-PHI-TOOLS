@@ -17,7 +17,7 @@ const Select = ({
         value={value}
         id={`input${name}`}
         name={name}
-        class='form-select text-white-dark'
+        className='form-select text-white-dark'
       >
         <option value="">
           {placeholder}

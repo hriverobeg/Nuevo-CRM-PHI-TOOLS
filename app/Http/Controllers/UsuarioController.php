@@ -2,18 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUsuarioRequest;
-use App\Http\Requests\UpdateUsuarioRequest;
 use App\Models\Usuario;
+use App\Traits\RedirectTrait;
+use Auth;
+use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+    use RedirectTrait;
+
+    protected $page = 'usuarios
+    ';
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $auth = Auth::user();
+
+        if ($auth->isAdmin) {
+            $list = Usuario::all();
+        } else {
+            $list = Usuario::where('admin_id', $auth->id)->get();
+        }
+
+        return view('pages.usuarios.wrapper', compact('list'));
     }
 
     /**
@@ -27,9 +40,18 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUsuarioRequest $request)
+    public function store(Request $request)
     {
-        //
+        $auth = Auth::user();
+
+        Usuario::create([
+            'nombre' => $request->nombre,
+            'email' => $request->email,
+            'telefono' => $request->telefono,
+            'admin_id' => $auth->id
+        ]);
+
+        return $this->redirectIndex($this->page);
     }
 
     /**
@@ -51,7 +73,7 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUsuarioRequest $request, Usuario $usuario)
+    public function update(Request $request, Usuario $usuario)
     {
         //
     }

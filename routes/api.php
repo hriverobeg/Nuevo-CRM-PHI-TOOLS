@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\ClienteController;
+use App\Http\Controllers\Api\CotizacionController;
+use App\Http\Controllers\Api\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth')->apiResource('cotizaciones', CotizacionController::class)->names('apicotizaciones');
+Route::middleware('auth')->group(function () {
+  Route::apiResource('cotizacion', CotizacionController::class)->names('apicotizaciones')->only('update');
+});
+
+Route::apiResource('usuarios', UsuarioController::class)->names('apiusuarios')->only('index');
+Route::apiResource('clientes', ClienteController::class)->names('apiclientes')->only('index');

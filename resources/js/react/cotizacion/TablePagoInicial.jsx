@@ -23,11 +23,13 @@ const TablePagoInicial = ({
   return (
     <Table titulo='Pago inicial'>
       <thead>
-        <th className='text-left'>Concepto</th>
-        {is24 && <th>24 meses</th>}
-        {is36 && <th>36 meses</th>}
-        {is48 && <th>48 meses</th>}
-        {is60 && <th>60 meses</th>}
+        <tr>
+          <th className='text-left'>Concepto</th>
+          {is24 && <th>24 meses</th>}
+          {is36 && <th>36 meses</th>}
+          {is48 && <th>48 meses</th>}
+          {is60 && <th>60 meses</th>}
+        </tr>
       </thead>
       <tbody>
         <tr>

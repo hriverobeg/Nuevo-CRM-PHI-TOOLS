@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
 
@@ -18,7 +19,7 @@ class Admin extends Authenticatable
     protected $appends = ['isAdmin'];
 
     protected $fillable = [
-        'nombre', 'email', 'password',
+        'nombre', 'email', 'password', 'nivel_id', 'empresa', 'telefono', 'empresa'
     ];
 
     protected $hidden = [

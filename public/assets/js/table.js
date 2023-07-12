@@ -51,7 +51,7 @@ document.addEventListener('alpine:init', () => {
               bottom: '{info}{select}{pager}',
           },
           columns: [
-            columnActions(columnActionsNumber)
+            columnActions(headings.length - 1)
           ]
       };
 

@@ -15,8 +15,8 @@ const InputRange = ({ min = 0, max = 100, step = 1, value = 0, name = '', onChan
           onChange={onChange}
           className='w-full py-2.5'
         />
-        <div style={{ width: '60px', flex: '0 0 60px' }} class='font-bold'>
-          <span class='inline-block py-1 px-2 rounded text-primary border border-white-light dark:border-dark'>
+        <div style={{ width: '60px', flex: '0 0 60px' }} className='font-bold'>
+          <span className='inline-block py-1 px-2 rounded text-primary border border-white-light dark:border-dark'>
             {value}
           </span>
           <span>%</span>

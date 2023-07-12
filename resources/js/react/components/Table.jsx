@@ -8,7 +8,7 @@ const Table = ({
     <>
       <h2 className='text-lg font-semibold dark:text-white-light mb-3'>{titulo}</h2>
       <div className='table-responsive'>
-        <table class='table-hover'>{children}</table>
+        <table className='table-hover'>{children}</table>
       </div>
     </>
   )
