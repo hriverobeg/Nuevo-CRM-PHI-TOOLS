@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->group(function () {
-  Route::apiResource('cotizacion', CotizacionController::class)->names('apicotizaciones')->only('update');
+  //Route::apiResource('cotizacion', CotizacionController::class)->names('apicotizaciones')->only('update');
 });
 
-Route::apiResource('usuarios', UsuarioController::class)->names('apiusuarios')->only('index');
-Route::apiResource('clientes', ClienteController::class)->names('apiclientes')->only('index');

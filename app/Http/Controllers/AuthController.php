@@ -18,12 +18,24 @@ class AuthController extends Controller
         ]);
 
         if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password], true)) {
-            return redirect('/admin');
+            $auth = Auth::user();
+            if ($auth->isAdmin) {
+                return redirect('/admin');
+            } else {
+                return redirect('/cotizaciones');
+            }
+
         }
 
         return redirect()
             ->route('login')
             ->withErrors(['No coinciden las credenciales'])
             ->withInput();
+    }
+
+    public function logout() {
+        Auth::guard('web')->logout();
+        return redirect()
+            ->route('login');
     }
 }

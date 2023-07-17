@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
-import { calcularResiduo, formulaComision, isValid } from "../../utils/formulas";
+import { useEffect, useState } from 'react';
+import { calcularResiduo } from '../../../utils/formulas';
 
 const defaultValores = {
+  cliente_id: null,
+  usuario_id: null,
   nombreActivo: '',
   anio: '',
   tituloCotizacion: '',
@@ -63,16 +65,18 @@ const ejemplo1 = {
 
 const useFoumulario = ({ row }) => {
   const [form, setForm] = useState(ejemplo1 ?? defaultValores);
-  const [token, setToken] = useState('')
-  const [clientes, setClientes] = useState([])
-  const [usuarios, setUsuarios] = useState([])
+  const [token, setToken] = useState('');
+  const [clientes, setClientes] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    setToken(document.querySelector('meta[name="csrf-token"]').content)
-    const {clientes: clients, usuarios: users} = window.Laravel
-    setClientes(clients)
-    setUsuarios(users)
-  }, [])
+    setToken(document.querySelector('meta[name="csrf-token"]').content);
+    const { clientes: clients, usuarios: users, isAdmin: admin } = window.Laravel;
+    setIsAdmin(admin);
+    setClientes(clients);
+    setUsuarios(users);
+  }, []);
 
   function onChangeForm({ target: { name, value } }) {
     setForm({
@@ -95,7 +99,7 @@ const useFoumulario = ({ row }) => {
       comisionPorApertura: formulaComision(
         form.valorActivo,
         form.anticipo,
-        form.comisionPorcentaje
+        form.comisionPorcentaje,
       ),
     };
 
@@ -115,9 +119,7 @@ const useFoumulario = ({ row }) => {
       return;
     }
 
-    const anticipoPorcentaje = parseInt(
-      (formNew.anticipo * 100) / formNew.valorActivo
-    );
+    const anticipoPorcentaje = parseInt((formNew.anticipo * 100) / formNew.valorActivo);
 
     setForm({
       ...formNew,
@@ -125,7 +127,7 @@ const useFoumulario = ({ row }) => {
       comisionPorApertura: formulaComision(
         form.valorActivo,
         form.anticipo,
-        form.comisionPorcentaje
+        form.comisionPorcentaje,
       ),
     });
   }
@@ -137,13 +139,11 @@ const useFoumulario = ({ row }) => {
 
     setForm({
       ...formNew,
-      anticipo: parseInt(
-        formNew.valorActivo * (formNew.anticipoPorcentaje / 100)
-      ),
+      anticipo: parseInt(formNew.valorActivo * (formNew.anticipoPorcentaje / 100)),
       comisionPorApertura: formulaComision(
         form.valorActivo,
         form.anticipo,
-        form.comisionPorcentaje
+        form.comisionPorcentaje,
       ),
     });
   }
@@ -171,7 +171,7 @@ const useFoumulario = ({ row }) => {
     const comisionPorApertura = formulaComision(
       formNew.valorActivo,
       formNew.anticipo,
-      formNew.comisionPorcentaje
+      formNew.comisionPorcentaje,
     );
 
     setForm({
@@ -186,8 +186,11 @@ const useFoumulario = ({ row }) => {
     onChangeTipoActivo,
     onChangeFormNumber,
     handleChangeCheckbox,
-    token
-  }
-}
+    token,
+    clientes,
+    usuarios,
+    isAdmin,
+  };
+};
 
-export default useFoumulario
+export default useFoumulario;

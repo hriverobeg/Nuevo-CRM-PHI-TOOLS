@@ -1,5 +1,5 @@
 import React from 'react';
-import { numeroComas } from '../utils/formulas';
+import { numeroComas } from '../../utils/formulas';
 import Table from '../components/Table';
 
 const TableDatosActivos = ({ nombreActivo, anio, valorActivo }) => {

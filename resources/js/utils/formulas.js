@@ -69,3 +69,4 @@ export const formulaComision = (valorActivo, anticipo, comisionPorcentaje) => {
   const montoFinanciar = valorActivo - anticipo;
   return parseInt(montoFinanciar * (comisionPorcentaje / 100));
 };
+

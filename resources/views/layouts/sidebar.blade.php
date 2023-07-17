@@ -4,9 +4,7 @@
     <div class="h-full bg-white dark:bg-[#0e1726]">
       <div class="flex items-center justify-between px-4 py-3">
           <a href="/" class="main-logo flex shrink-0 items-center">
-              <img class="ml-[5px] w-8 flex-none" src="/assets/images/logo.svg" alt="image" />
-              <span
-                  class="align-middle text-2xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">VRISTO</span>
+              <img class="ml-[5px] w-[95px] flex-none" src="/assets/images/logo.jpg" alt="image" />
           </a>
           <a href="javascript:;"
               class="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10"
@@ -26,7 +24,10 @@
           <li class="nav-item">
             <ul>
                 <li class="nav-item">
-                    <a href="apps-chat.html" class="group">
+                    @php
+                        $url = auth()->user()->nivel_id === 1 ? '/dashboard-admin' : '/dashboard-cliente'
+                    @endphp
+                    <a href="{{ $url }}" class="group">
                         <div class="flex items-center">
                           <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
                               viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,6 +57,7 @@
 
           <li class="nav-item">
               <ul>
+                @if (auth()->user()->nivel_id == 1)
                 <x-sidebar.item href="/admin" nombre="Administradores">
                     <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -67,6 +69,8 @@
                             fill="currentColor" />
                     </svg>
                 </x-sidebar.item>
+                @endif
+                @if (auth()->user()->nivel_id == 1)
                   <x-sidebar.item href="/clientes" nombre="Clientes">
                     <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,6 +88,7 @@
                             fill="currentColor" />
                     </svg>
                   </x-sidebar.item>
+                  @endif
                   <x-sidebar.item href="/cotizaciones" nombre="Cotizaciones">
                     <svg
                         class="shrink-0 group-hover:!text-primary"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Input from '../components/Input';
 import useFoumulario from './hooks/useFoumulario';
 import Select from '../components/Select';
@@ -18,6 +18,9 @@ const Formulario = () => {
     onChangeTipoActivo,
     onChangeFormNumber,
     handleChangeCheckbox,
+    clientes,
+    isAdmin,
+    usuarios,
   } = useFoumulario({
     row: null,
   });
@@ -29,6 +32,30 @@ const Formulario = () => {
           <form action='/cotizaciones' method='post'>
             <input type='hidden' name='_token' value={token} />
             <div className='grid grid-cols-1 gap-5 lg:grid-cols-2'>
+              {isAdmin ? (
+                <Select
+                  label='Cliente'
+                  name='cliente_id'
+                  placeholder='Selcciona el cliente'
+                  value={form.cliente_id}
+                  className='lg:col-span-2'
+                  options={clientes}
+                  optionName='nombre'
+                  onChange={onChangeForm}
+                />
+              ) : (
+                <Select
+                  label='Usuario'
+                  name='usuario_id'
+                  placeholder='Selcciona el usuario'
+                  value={form.usuario_id}
+                  className='lg:col-span-2'
+                  options={usuarios}
+                  optionName='nombre'
+                  onChange={onChangeForm}
+                />
+              )}
+
               <Input
                 label='Titulo de la cotización'
                 name='tituloCotizacion'

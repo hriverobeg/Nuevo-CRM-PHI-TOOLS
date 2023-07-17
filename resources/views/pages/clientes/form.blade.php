@@ -7,6 +7,17 @@
   <input id="email" name="email" x-model="form.email" required type="text" class="form-input mt-1" placeholder="Email" />
 </div>
 <div>
+    <label for="password">Contraseña</label>
+    <input
+        id="password"
+        name="password"
+        x-model="form.password"
+        type="password"
+        class="form-input mt-1"
+        placeholder="Contraseña"
+        />
+  </div>
+<div>
   <label for="telefono">Teléfono</label>
   <input id="telefono" name="telefono" x-model="form.telefono" required type="text" class="form-input mt-1" placeholder="Teléfono" />
 </div>

@@ -11,8 +11,7 @@ class UsuarioController extends Controller
 {
     use RedirectTrait;
 
-    protected $page = 'usuarios
-    ';
+    protected $page = 'usuarios';
     /**
      * Display a listing of the resource.
      */
@@ -83,6 +82,8 @@ class UsuarioController extends Controller
      */
     public function destroy(Usuario $usuario)
     {
-        //
+        $usuario->delete();
+
+        return $this->redirectIndex($this->page);
     }
 }

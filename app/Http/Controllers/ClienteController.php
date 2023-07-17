@@ -41,7 +41,11 @@ class ClienteController extends Controller
         $this->validate(
             $request,
             [
-                'email' => 'unique:admin,email'
+                'email' => 'required|unique:admin,email',
+                'nombre' => 'required',
+                'password' => 'required',
+                'telefono' => 'required',
+                'empresa' => 'required'
             ]
         );
 
@@ -90,8 +94,12 @@ class ClienteController extends Controller
             $cliente->empresa = $request->empresa;
         }
 
+        if($request->has('password') && !empty($request->password)){
+            $cliente->password = Hash::make($request->password);
+        }
+
         if (!$cliente->isDirty()) {
-            // return $this->redirectDirty($cliente);
+            return $this->redirectDirty($cliente, 'clientes');
         }
 
         $cliente->save();

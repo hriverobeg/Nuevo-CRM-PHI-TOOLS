@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Api\CotizacionController as ApiCotizacionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CotizacionController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Middleware\VerifyIsAdmin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,11 +23,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::post('/', [AuthController::class, 'loginPOST'])->name('loginPOST');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function() {
-  Route::resource('/admin', AdminController::class);
-  Route::resource('/clientes', ClienteController::class)->names('clientes');
+  Route::resource('/admin', AdminController::class)->middleware(VerifyIsAdmin::class);
+  Route::get('/dashboard-admin', [DashboardController::class, 'admin'])->middleware(VerifyIsAdmin::class);
+  Route::get('/dashboard-cliente', [DashboardController::class, 'cliente']);
+  Route::resource('/clientes', ClienteController::class)->names('clientes')->middleware(VerifyIsAdmin::class);
   Route::resource('/usuarios', UsuarioController::class)->names('usuarios');
   Route::resource('/cotizaciones', CotizacionController::class);
+  Route::prefix('api')->group(function() {
+    Route::apiResource('cotizacion', ApiCotizacionController::class)->names('apicotizaciones')->only('update');
+  });
 });
 

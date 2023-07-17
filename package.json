@@ -13,6 +13,8 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "formula-pmt": "^1.0.1"
+        "formula-pmt": "^1.0.1",
+        "jspdf": "^2.5.1",
+        "jspdf-autotable": "^3.5.31"
     }
 }

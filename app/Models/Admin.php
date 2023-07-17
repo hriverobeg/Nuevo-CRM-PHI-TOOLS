@@ -28,7 +28,7 @@ class Admin extends Authenticatable
     ];
 
     protected function getIsAdminAttribute() {
-        return (bool) $this->nivel_id == 1;
+        return $this->nivel_id == 1;
     }
 
     public function scopeAdmin(Builder $query) {

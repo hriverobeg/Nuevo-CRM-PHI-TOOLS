@@ -1,6 +1,6 @@
 import React from 'react';
 import Table from '../components/Table';
-import { getResiduo, numeroComas, pagoRenta } from '../utils/formulas';
+import { getResiduo, numeroComas, pagoRenta } from '../../utils/formulas';
 
 const TablePagoOc = ({
   anticipo,

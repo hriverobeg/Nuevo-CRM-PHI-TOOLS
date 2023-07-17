@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\DateFormatTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,6 +20,7 @@ class Cotizacion extends Model
 
     protected $fillable = [
         'usuario_id',
+        'cliente_id',
         'admin_id',
         'board_id',
         'nombreActivo',
@@ -49,4 +51,24 @@ class Cotizacion extends Model
         'is60',
         'isAlivioFiscal',
     ];
+
+    public function usuario() {
+        return $this->hasOne(Usuario::class, 'id', 'usuario_id');
+    }
+
+    public function cliente() {
+        return $this->hasOne(Admin::class, 'id', 'cliente_id');
+    }
+
+    public function getFechaAttribute()
+    {
+        return $this->getFechaFormat($this->created_at);
+    }
+
+    public function scopeClienteBoard(Builder $builder, $clienteId, $boardId) {
+        return $builder->where([
+            ['admin_id', $clienteId],
+            ['board_id', $boardId]
+        ]);
+    }
 }

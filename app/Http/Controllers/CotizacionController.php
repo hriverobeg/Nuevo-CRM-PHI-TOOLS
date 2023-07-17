@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BoardResource;
 use App\Models\Admin;
 use App\Models\Board;
 use App\Models\Cotizacion;
@@ -24,14 +25,16 @@ class CotizacionController extends Controller
     {
         $auth = Auth::user();
 
-        $boards = Board::
-            with('cotizaciones')
-            ->when(!$auth->isAdmin, function (Builder $builder) use ($auth) {
-                $builder->where('cliente_id', $auth->id);
-            })
-            ->get();
+        if ($auth->isAdmin) {
+            $boards = Board::with('cotizaciones')->orderBy('id')->get();
+        } else {
+            $boards = Board::clientes($auth->id)->orderBy('id')->get();
+        }
+
+        $resource = BoardResource::collection($boards);
+
         return view('pages.cotizaciones.wrapper', [
-            'boards' => $boards,
+            'boards' => $resource,
             'isAdmin' => $auth->isAdmin
         ]);
     }
@@ -43,15 +46,17 @@ class CotizacionController extends Controller
     {
         $auth = Auth::user();
 
-        $usuarios = $auth->isAdmin 
-            ? Usuario::all('id', 'nombre') 
-            : Usuario::select('id', 'nombre')->where('admin_id', $auth->id)->get(); 
+        $usuarios = $auth->isAdmin
+            ? []
+            : Usuario::select('id', 'nombre')->where('admin_id', $auth->id)->get();
 
-        $clientes = $auth->isAdmin 
+        $clientes = $auth->isAdmin
             ? Admin::cliente()->get()
             : [];
 
-        return view('pages.cotizaciones.form', compact(['usuarios', 'clientes']));
+        $isAdmin = $auth->isAdmin;
+
+        return view('pages.cotizaciones.form', compact(['usuarios', 'clientes', 'isAdmin']));
     }
 
     /**
@@ -61,14 +66,17 @@ class CotizacionController extends Controller
     {
         $auth = Auth::user();
 
-        Usuario::where([
-            ['usuario_id', $request->usuario_id],
-            ['admin_id', $auth->id]
-        ])->firstOrFail();
+        if ($request->has('usuario_id') && $request->usuario_id != null) {
+            Usuario::where([
+                ['id', $request->usuario_id],
+                ['admin_id', $auth->id]
+            ])->firstOrFail();
+        }
 
         Cotizacion::create([
-            'usuario_id'                => $request->usuario_id,
-            'admin_id'                  => $request->admin_id ?? $auth->id,
+            'usuario_id'                => $request->usuario_id ?? null,
+            'cliente_id'                => $request->cliente_id ?? null,
+            'admin_id'                  => $auth->id,
             'board_id'                  => 1,
             'nombreActivo'              => $request->nombreActivo,
             'anio'                      => $request->anio,
@@ -123,7 +131,7 @@ class CotizacionController extends Controller
      */
     public function update(Request $request, Cotizacion $cotizacion)
     {
-        
+
     }
 
     /**

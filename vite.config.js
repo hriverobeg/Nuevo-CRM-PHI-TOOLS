@@ -4,7 +4,9 @@ import laravel from 'laravel-vite-plugin';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/js/react/cotizacion/index.js'],
+            input: [
+                'resources/js/react/cotizacion/index.jsx',
+            ],
             refresh: true,
         }),
     ],

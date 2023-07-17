@@ -19,4 +19,11 @@ class Board extends Model
     {
         return $this->hasMany(Cotizacion::class);
     }
+
+    public function scopeClientes($builder, $adminId) {
+        return $builder
+           ->with(['cotizaciones' => function ($builder) use ($adminId) {
+                $builder->where('admin_id', $adminId);
+           }]);
+    }
 }

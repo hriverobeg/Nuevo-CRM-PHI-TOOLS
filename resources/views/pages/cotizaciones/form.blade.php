@@ -9,14 +9,18 @@
   </li>
 </ul>
 <div class="flex gap-5 mb-5">
-  <x-buttonhref :href="route('clientes.index')">Agregar cliente</x-buttonhref>
-  <x-buttonhref :href="route('usuarios.index')">Agregar usuario</x-buttonhref>
+    @if ($isAdmin)
+    <x-buttonhref :href="route('clientes.index')">Agregar cliente</x-buttonhref>
+    @else
+    <x-buttonhref :href="route('usuarios.index')">Agregar usuario</x-buttonhref>
+    @endif
 </div>
 <div id="cotizacion"></div>
 <script>
   window.Laravel = {};
   Laravel.clientes = @json($clientes);
   Laravel.usuarios = @json($usuarios);
+  Laravel.isAdmin = {{ json_encode($isAdmin) }}
 </script>
 @vite('resources/js/react/cotizacion/index.jsx')
 @endsection

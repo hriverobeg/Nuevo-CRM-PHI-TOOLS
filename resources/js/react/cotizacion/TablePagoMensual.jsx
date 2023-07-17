@@ -1,6 +1,6 @@
 import React from 'react';
 import Table from '../components/Table';
-import { getResiduo, numeroComas, pagoRenta, pagoSeguro } from '../utils/formulas';
+import { getResiduo, numeroComas, pagoRenta, pagoSeguro } from '../../utils/formulas';
 
 const TablePagoMensual = ({
   anticipo,
