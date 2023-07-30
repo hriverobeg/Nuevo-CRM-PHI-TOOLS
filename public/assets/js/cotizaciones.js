@@ -20,6 +20,7 @@ document.addEventListener('alpine:init', () => {
     isModalCotizacion: false,
     row: null,
     isLoadingPdf: false,
+    isDeleteModal: false,
     async downloadPdf() {
       this.isLoadingPdf = true;
       await window.createPDF(this.row, {
@@ -33,6 +34,11 @@ document.addEventListener('alpine:init', () => {
         this.row = cotizacion;
         this.isModalCotizacion = true;
       }
+    },
+    onDelete(row) {
+        this.row = row
+
+        this.isDeleteModal = true
     },
     numeroComas(num) {
       const numCalc = num ? Number(num).toFixed(0) : '';

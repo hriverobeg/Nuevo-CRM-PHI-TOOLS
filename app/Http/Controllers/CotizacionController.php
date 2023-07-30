@@ -146,8 +146,11 @@ class CotizacionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cotizacion $cotizacion)
+    public function destroy(int $id)
     {
-        //
+        $cotizacion = Cotizacion::findOrFail($id);
+        $cotizacion->delete();
+
+        return $this->redirectIndex($this->page);
     }
 }

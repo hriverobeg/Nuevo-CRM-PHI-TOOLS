@@ -31,6 +31,17 @@ use Illuminate\Support\Facades\Route;
 //     Mail::to($email)->send(new CotizacionMail($cotizacion));
 // });
 
+Route::get('/route-cache', function() {
+    \Artisan::call('route:cache');
+    return 'Routes cache cleared';
+});
+
+ //Clear config cache
+ Route::get('/config-cache', function() {
+    \Artisan::call('config:cache');
+    return 'Config cache cleared';
+});
+
 Route::get('/cotizacion-descargar', CotizacionDescargarController::class);
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::post('/', [AuthController::class, 'loginPOST'])->name('loginPOST');
