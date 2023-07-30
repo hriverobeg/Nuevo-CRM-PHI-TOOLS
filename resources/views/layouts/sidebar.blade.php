@@ -71,7 +71,7 @@
                 </x-sidebar.item>
                 @endif
                 @if (auth()->user()->nivel_id == 1)
-                  <x-sidebar.item href="/clientes" nombre="Clientes">
+                  <x-sidebar.item href="/usuarios" nombre="Usuarios">
                     <svg class="shrink-0 group-hover:!text-primary" width="20" height="20"
                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -113,7 +113,7 @@
                         />
                     </svg>
                   </x-sidebar.item>
-                  <x-sidebar.item href="/usuarios" nombre="Usuarios">
+                  <x-sidebar.item href="/clientes" nombre="Clientes">
                     <svg
                         class="shrink-0 group-hover:!text-primary"
                         width="20"

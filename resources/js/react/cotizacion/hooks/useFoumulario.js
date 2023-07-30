@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { calcularResiduo } from '../../../utils/formulas';
+import { calcularResiduo, formulaComision, isValid } from '../../../utils/formulas';
 
 const defaultValores = {
   cliente_id: null,
@@ -64,7 +64,7 @@ const ejemplo1 = {
 };
 
 const useFoumulario = ({ row }) => {
-  const [form, setForm] = useState(ejemplo1 ?? defaultValores);
+  const [form, setForm] = useState(row ?? ejemplo1);
   const [token, setToken] = useState('');
   const [clientes, setClientes] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
@@ -72,10 +72,21 @@ const useFoumulario = ({ row }) => {
 
   useEffect(() => {
     setToken(document.querySelector('meta[name="csrf-token"]').content);
-    const { clientes: clients, usuarios: users, isAdmin: admin } = window.Laravel;
+    const {
+      clientes: clients,
+      usuarios: users,
+      isAdmin: admin,
+      interes: interesCliente,
+      comisionPorcentaje: comisionPorcentajeCliente
+    } = window.Laravel;
     setIsAdmin(admin);
     setClientes(clients);
     setUsuarios(users);
+    if (!isAdmin) {
+        onChangeFormNumber({ target: { name: 'interes', value: interesCliente } })
+        onChangeFormNumber({ target: { name: 'comisionPorcentaje', value: comisionPorcentajeCliente } })
+    }
+
   }, []);
 
   function onChangeForm({ target: { name, value } }) {

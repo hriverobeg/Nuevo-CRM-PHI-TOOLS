@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\BoardResource;
+use App\Mail\CotizacionMail;
 use App\Models\Admin;
 use App\Models\Board;
 use App\Models\Cotizacion;
 use App\Models\Usuario;
 use App\Traits\RedirectTrait;
 use Auth;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
+use Mail;
 
 class CotizacionController extends Controller
 {
@@ -55,8 +55,11 @@ class CotizacionController extends Controller
             : [];
 
         $isAdmin = $auth->isAdmin;
+        $interes = $auth->interes;
+        $comisionPorcentaje = $auth->comisionPorcentaje;
 
-        return view('pages.cotizaciones.form', compact(['usuarios', 'clientes', 'isAdmin']));
+        return view('pages.cotizaciones.form',
+            compact(['usuarios', 'clientes', 'isAdmin', 'interes', 'comisionPorcentaje']));
     }
 
     /**
@@ -84,9 +87,9 @@ class CotizacionController extends Controller
             'valorActivo'               => $request->valorActivo,
             'anticipo'                  => $request->anticipo,
             'anticipoPorcentaje'        => $request->anticipoPorcentaje,
-            'comisionPorApertura'       => $request->comisionPorApertura,
-            'comisionPorcentaje'        => $request->comisionPorcentaje,
-            'interes'                   => $request->interes,
+            'comisionPorApertura'       => $request->comisionPorApertura ?? 0,
+            'comisionPorcentaje'        => $request->comisionPorcentaje ?? $auth->comisionPorcentaje,
+            'interes'                   => $request->interes ?? $auth->interes,
             'valorSeguro'               => $request->valorSeguro,
             'tipoActivo'                => $request->tipoActivo,
             'otro'                      => $request->otro,
@@ -106,6 +109,12 @@ class CotizacionController extends Controller
             'is60'                      => $request->is60 ?? false,
             'isAlivioFiscal'            => $request->isAlivioFiscal ?? false,
         ]);
+
+        $cotizacion = Cotizacion::with('cliente', 'usuario')->latest()->first();
+
+        $email =  $cotizacion->usuario?->email ?? $cotizacion->cliente?->email;
+
+        Mail::to($email)->send(new CotizacionMail($cotizacion));
 
         return $this->redirectIndex($this->page);
     }

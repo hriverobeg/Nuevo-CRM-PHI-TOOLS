@@ -29,25 +29,27 @@ const Formulario = () => {
     <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
       <div className='w-full'>
         <div className='panel'>
-          <form action='/cotizaciones' method='post'>
+          <form action='/cotizaciones' method='post' onSubmit={() => console.table(form)}>
             <input type='hidden' name='_token' value={token} />
+            <input type='hidden' name='comisionPorApertura' value={form.comisionPorApertura} />
             <div className='grid grid-cols-1 gap-5 lg:grid-cols-2'>
               {isAdmin ? (
                 <Select
-                  label='Cliente'
+                  label='Usuario'
                   name='cliente_id'
-                  placeholder='Selcciona el cliente'
+                  placeholder='Selcciona el usuario'
                   value={form.cliente_id}
                   className='lg:col-span-2'
                   options={clientes}
                   optionName='nombre'
+                  optionRender={(item) => `${item.nombre} (${item.email})`}
                   onChange={onChangeForm}
                 />
               ) : (
                 <Select
-                  label='Usuario'
+                  label='Cliente'
                   name='usuario_id'
-                  placeholder='Selcciona el usuario'
+                  placeholder='Selcciona el cliente'
                   value={form.usuario_id}
                   className='lg:col-span-2'
                   options={usuarios}
@@ -117,42 +119,46 @@ const Formulario = () => {
                   max={50}
                 />
               </div>
-              <div>
-                <Input
-                  label='Comisión por apertura'
-                  name='comisionPorApertura'
-                  value={form.comisionPorApertura}
-                  placeholder='Comisión por apertura'
-                  onChange={onChangeFormNumber}
-                  type='number'
-                  className='mb-2'
-                />
-                <InputRange
-                  name='comisionPorcentaje'
-                  value={form.comisionPorcentaje}
-                  onChange={onChangeFormNumber}
-                  step={0.5}
-                  max={5}
-                />
-              </div>
-              <div>
-                <Input
-                  label='Interés'
-                  name='interes'
-                  value={form.interes}
-                  placeholder='Interés'
-                  onChange={onChangeFormNumber}
-                  type='number'
-                  className='mb-2'
-                />
-                <InputRange
-                  name='interes'
-                  value={form.interes}
-                  onChange={onChangeFormNumber}
-                  step={0.5}
-                  max={50}
-                />
-              </div>
+              {isAdmin && (
+                <>
+                  <div>
+                    <Input
+                      label='Comisión por apertura'
+                      name='comisionPorApertura'
+                      value={form.comisionPorApertura}
+                      placeholder='Comisión por apertura'
+                      onChange={onChangeFormNumber}
+                      type='number'
+                      className='mb-2'
+                    />
+                    <InputRange
+                      name='comisionPorcentaje'
+                      value={form.comisionPorcentaje}
+                      onChange={onChangeFormNumber}
+                      step={0.5}
+                      max={5}
+                    />
+                  </div>
+                  <div>
+                    <Input
+                      label='Interés'
+                      name='interes'
+                      value={form.interes}
+                      placeholder='Interés'
+                      onChange={onChangeFormNumber}
+                      type='number'
+                      className='mb-2'
+                    />
+                    <InputRange
+                      name='interes'
+                      value={form.interes}
+                      onChange={onChangeFormNumber}
+                      step={0.5}
+                      max={50}
+                    />
+                  </div>
+                </>
+              )}
               <Input
                 label='Valor seguro'
                 name='valorSeguro'
@@ -198,6 +204,12 @@ const Formulario = () => {
                 label='¿Tiene Seguro?'
                 name='isSeguro'
                 value={form.isSeguro}
+                onChange={handleChangeCheckbox}
+              />
+              <Checkbox
+                label='¿Tiene telemetría?'
+                name='isTelematics'
+                value={form.isTelematics}
                 onChange={handleChangeCheckbox}
               />
               <Checkbox

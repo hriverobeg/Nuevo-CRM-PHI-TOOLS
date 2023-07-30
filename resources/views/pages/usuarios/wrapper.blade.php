@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-<x-table titulo="Usuarios">
+<x-table titulo="Clientes">
   @include('pages.usuarios.form')
 </x-table>
 @endsection
@@ -9,7 +9,7 @@
   var dataLaravel = @json($list);
   var headings = ['ID', 'Nombre', 'Email', 'Teléfono', 'Acciones']
   var data = dataLaravel.map(m => ([m.id, m.nombre, m.email, m.telefono, m.id]))
-  var page = '/usuarios'
+  var page = '/clientes'
 
   var formData = {
     id: null,

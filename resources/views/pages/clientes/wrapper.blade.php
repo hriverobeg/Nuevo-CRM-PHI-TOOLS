@@ -1,16 +1,16 @@
 @extends('layouts.main')
 @section('content')
-<x-table titulo="Clientes">
+<x-table titulo="Usuarios">
   @include('pages.clientes.form')
 </x-table>
 @endsection
 @section('scripts')
 <script>
   var dataLaravel = @json($list);
-  var headings = ['ID', 'Nombre', 'Email', 'Teléfono', 'Empresa', 'Acciones']
-  var data = dataLaravel.map(m => ([m.id, m.nombre, m.email, m.telefono, m.empresa, m.id]))
+  var headings = ['ID', 'Nombre', 'Email', 'Teléfono', 'Empresa', 'Interés', 'Comisión por apertura', 'Acciones']
+  var data = dataLaravel.map(m => ([m.id, m.nombre, m.email, m.telefono, m.empresa,`${m.interes}%`, `${m.comisionPorcentaje}%`, m.id]))
   var columnActionsNumber = 5
-  var page = '/clientes'
+  var page = '/usuarios'
 
   var formData = {
     id: null,

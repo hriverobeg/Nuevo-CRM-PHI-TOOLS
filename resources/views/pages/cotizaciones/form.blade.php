@@ -10,9 +10,9 @@
 </ul>
 <div class="flex gap-5 mb-5">
     @if ($isAdmin)
-    <x-buttonhref :href="route('clientes.index')">Agregar cliente</x-buttonhref>
+    <x-buttonhref :href="route('clientes.index')">Agregar usuario</x-buttonhref>
     @else
-    <x-buttonhref :href="route('usuarios.index')">Agregar usuario</x-buttonhref>
+    <x-buttonhref :href="route('usuarios.index')">Agregar cliente</x-buttonhref>
     @endif
 </div>
 <div id="cotizacion"></div>
@@ -21,6 +21,9 @@
   Laravel.clientes = @json($clientes);
   Laravel.usuarios = @json($usuarios);
   Laravel.isAdmin = {{ json_encode($isAdmin) }}
+  Laravel.interes = {{ $interes }}
+  Laravel.comisionPorcentaje = {{ $comisionPorcentaje }}
 </script>
+@viteReactRefresh
 @vite('resources/js/react/cotizacion/index.jsx')
 @endsection

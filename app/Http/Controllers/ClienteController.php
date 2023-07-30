@@ -45,7 +45,9 @@ class ClienteController extends Controller
                 'nombre' => 'required',
                 'password' => 'required',
                 'telefono' => 'required',
-                'empresa' => 'required'
+                'empresa' => 'required',
+                'interes' => 'required',
+                'comisionPorcentaje' => 'required'
             ]
         );
 
@@ -55,7 +57,9 @@ class ClienteController extends Controller
             'email' => $request->email,
             'telefono' => $request->telefono,
             'empresa' => $request->empresa,
-            'nivel_id' => 2
+            'nivel_id' => 2,
+            'interes' => $request->interes,
+            'comisionPorcentaje' => $request->comisionPorcentaje
         ]);
 
         return $this->redirectIndex($this->page);
@@ -80,8 +84,10 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Admin $cliente)
+    public function update(Request $request, int $id)
     {
+        $cliente = Admin::findOrFail($id);
+
         if($request->has('nombre')){
             $cliente->nombre = $request->nombre;
         }
@@ -92,6 +98,14 @@ class ClienteController extends Controller
 
         if($request->has('empresa')){
             $cliente->empresa = $request->empresa;
+        }
+
+        if($request->has('interes')){
+            $cliente->interes = $request->interes;
+        }
+
+        if($request->has('comisionPorcentaje')){
+            $cliente->comisionPorcentaje = $request->comisionPorcentaje;
         }
 
         if($request->has('password') && !empty($request->password)){

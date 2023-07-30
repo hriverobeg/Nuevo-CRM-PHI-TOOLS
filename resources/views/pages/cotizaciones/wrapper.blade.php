@@ -69,5 +69,5 @@
     </script>
     <script src="/assets/js/Sortable.min.js"></script>
     <script src="/assets/js/cotizaciones.js"></script>
-    @vite('resources/js/pdf/main')
+    @vite('resources/js/pdf/main.js')
 @endsection

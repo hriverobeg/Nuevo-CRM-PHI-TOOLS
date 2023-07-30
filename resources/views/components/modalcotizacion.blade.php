@@ -33,6 +33,12 @@
                 x-text="row?.tituloCotizacion" />
             </div>
             <div class="p-5">
+                <div class="mb-4 text-center">
+                    <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'C-std'" src="{{ asset('assets/images/computadoras.webp') }}" alt="Computadoras">
+                    <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'V-std'"  src="{{ asset('assets/images/sedan.png') }}" alt="Sedán">
+                    <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'B-std'" src="{{ asset('assets/images/suv.png') }}" alt="SUV">
+                    <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'otro'" src="{{ asset('assets/images/otro.jpeg') }}" alt="otro">
+                </div>
                 <x-cotizacion.item titulo="Datos del activo">
                     <div x-text="row?.nombreActivo"></div>
                 </x-cotizacion.item>
@@ -51,11 +57,14 @@
                 <x-cotizacion.item titulo="Tasa de interés">
                     <div x-text="`${row?.interes}%`"></div>
                 </x-cotizacion.item>
-                <x-cotizacion.item titulo="Seguro">
+                <x-cotizacion.item x-show="row?.isSeguro" titulo="Seguro">
                     <div x-text="numeroComas(row?.valorSeguro)"></div>
                 </x-cotizacion.item>
-                <x-cotizacion.item titulo="24 meses">
-                    <div x-text="numeroComas(row?.valorSeguro)"></div>
+                <x-cotizacion.item titulo="¿Tiene telematics?">
+                    <div x-text="row?.isTelematics ? 'Si' : 'No'"></div>
+                </x-cotizacion.item>
+                <x-cotizacion.item titulo="¿Tiene alivio fiscal?">
+                    <div x-text="row?.isAlivioFiscal ? 'Si' : 'No'"></div>
                 </x-cotizacion.item>
                 <x-cotizacion.item titulo="Descargar cotización">
                     <button x-show="isLoadingPdf" type="button" class="btn btn-primary btn-sm"><span class="animate-spin border-2 border-white border-l-transparent rounded-full w-5 h-5 ltr:mr-4 rtl:ml-4 inline-block align-middle"></span></button>

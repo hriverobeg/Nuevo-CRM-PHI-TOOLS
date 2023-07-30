@@ -19,7 +19,15 @@ class Admin extends Authenticatable
     protected $appends = ['isAdmin'];
 
     protected $fillable = [
-        'nombre', 'email', 'password', 'nivel_id', 'empresa', 'telefono', 'empresa'
+        'nombre',
+        'email',
+        'password',
+        'nivel_id',
+        'empresa',
+        'telefono',
+        'empresa',
+        'interes',
+        'comisionPorcentaje'
     ];
 
     protected $hidden = [

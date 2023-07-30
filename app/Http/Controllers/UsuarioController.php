@@ -72,9 +72,29 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $request, int $id)
     {
-        //
+        $usuario = Usuario::findOrFail($id);
+
+        if($request->has('nombre')){
+            $usuario->nombre = $request->nombre;
+        }
+
+        if($request->has('email')){
+            $usuario->email = $request->email;
+        }
+
+        if($request->has('telefono')){
+            $usuario->telefono = $request->telefono;
+        }
+
+        if (!$usuario->isDirty()) {
+            // return $this->redirectDirty($usuario);
+        }
+
+        $usuario->save();
+
+        return $this->redirectIndex($this->page);
     }
 
     /**

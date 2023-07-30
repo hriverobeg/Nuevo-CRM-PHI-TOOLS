@@ -9,7 +9,8 @@ const Select = ({
   value = '',
   onChange,
   optionId = 'id',
-  optionName = 'name'
+  optionName = 'name',
+  optionRender = null
 }) => {
   return (
     <div className={className}>
@@ -26,7 +27,7 @@ const Select = ({
         </option>
         {options.map((item) => (
           <option key={`option-${name}-${item[optionId]}`} value={item[optionId]}>
-            {item[optionName]}
+            {optionRender ? optionRender(item) : item[optionName]}
           </option>
         ))}
       </select>

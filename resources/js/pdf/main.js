@@ -72,17 +72,25 @@ async function createPDF(param, cliente) {
       };
     });
 
+    const pdfWidthHalf = pdfWidth / 2;
+
     let image = 'https://iili.io/HUA4d3F.jpg';
     let ext = 'jpg';
+    let ancho = pdfWidthHalf - 20
+    let alto = 31
 
     if (item.tipoActivo === 'V-std') {
-      image = 'https://iili.io/HUA4d3F.jpg';
-      ext = 'jpg';
+      image = 'https://iili.io/HLXjZ8J.png';
+      ext = 'png';
+      ancho = 55
+      alto = 31
     }
 
     if (item.tipoActivo === 'B-std') {
-      image = 'https://iili.io/HUA4AyG.png';
+      image = 'https://iili.io/HLXjPG1.png';
       ext = 'png';
+      ancho = 55
+      alto = 31
     }
 
     if (item.tipoActivo === 'C-std') {
@@ -90,9 +98,9 @@ async function createPDF(param, cliente) {
       ext = 'webp';
     }
 
-    const pdfWidthHalf = pdfWidth / 2;
 
-    doc.addImage(image, ext, 14, 20, pdfWidthHalf - 20, 31);
+
+    doc.addImage(image, ext, 14, 20, ancho, alto);
 
     doc
       .setFontSize(14)
