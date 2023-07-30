@@ -42,6 +42,16 @@ Route::get('/route-cache', function() {
     return 'Config cache cleared';
 });
 
+Route::get('/clear-cache', function() {
+    \Artisan::call('cache:clear');
+    return 'Application cache cleared';
+});
+
+Route::get('/optimize-clear', function() {
+    \Artisan::call('optimize:clear');
+    return 'View cache cleared';
+});
+
 Route::get('/cotizacion-descargar', CotizacionDescargarController::class);
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::post('/', [AuthController::class, 'loginPOST'])->name('loginPOST');

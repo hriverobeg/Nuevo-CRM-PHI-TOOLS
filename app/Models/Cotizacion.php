@@ -18,6 +18,27 @@ class Cotizacion extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
+    protected $casts = [
+        'isAlivioFiscal' => 'boolean',
+        'isTelematics' => 'boolean',
+        'isSeguro' => 'boolean',
+        'is24' => 'boolean',
+        'is36' => 'boolean',
+        'is48' => 'boolean',
+        'is60' => 'boolean',
+        'valorActivo' => 'double',
+        'anticipo' => 'double',
+        'anticipoPorcentaje' => 'double',
+        'comisionPorApertura' => 'double',
+        'comisionPorcentaje' => 'double',
+        'interes' => 'double',
+        'valorSeguro' => 'double',
+        'valorResidual24' => 'double',
+        'valorResidual36' => 'double',
+        'valorResidual48' => 'double',
+        'valorResidual60' => 'double',
+    ];
+
     protected $fillable = [
         'usuario_id',
         'cliente_id',

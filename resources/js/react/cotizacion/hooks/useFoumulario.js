@@ -64,7 +64,7 @@ const ejemplo1 = {
 };
 
 const useFoumulario = ({ row }) => {
-  const [form, setForm] = useState(row ?? ejemplo1);
+  const [form, setForm] = useState(row ?? defaultValores);
   const [token, setToken] = useState('');
   const [clientes, setClientes] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
