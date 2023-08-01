@@ -36,9 +36,9 @@ document.addEventListener('alpine:init', () => {
       }
     },
     onDelete(row) {
-        this.row = row
+      this.row = row;
 
-        this.isDeleteModal = true
+      this.isDeleteModal = true;
     },
     numeroComas(num) {
       const numCalc = num ? Number(num).toFixed(0) : '';
@@ -47,13 +47,14 @@ document.addEventListener('alpine:init', () => {
     initializeSortable() {
       setTimeout(() => {
         //sortable js
+
         this.boards.forEach((board) => {
           Sortable.create(document.querySelector(`#board-${board.id}`), {
             animation: 200,
             group: 'name',
             ghostClass: 'sortable-ghost',
             dragClass: 'sortable-drag',
-            disabled: disabledBoard(board.nivel_id, isAdmin),
+            disabled: disabledBoard(Number(board.id), isAdmin),
             onEnd: ({ from, to, item }) => {
               const cotizacionId = item.getAttribute('data-id');
               const fromId = from.getAttribute('data-id');
