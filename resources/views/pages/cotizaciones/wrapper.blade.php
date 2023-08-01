@@ -132,6 +132,6 @@
         var isAdmin = {{ json_encode($isAdmin) }}
     </script>
     <script src="/assets/js/Sortable.min.js"></script>
-    <script src="/assets/js/cotizaciones.js"></script>
+    <script src="/assets/js/cotizaciones.js?v=1.0.0"></script>
     @vite('resources/js/pdf/main.js')
 @endsection
