@@ -1,7 +1,7 @@
 const disabledBoard = (nivelId, isAdmin) => {
   if (isAdmin) return false;
 
-  if (nivelId === 1 && isAdmin) {
+  if (nivelId === 1 && !isAdmin) {
     return false;
   }
 
