@@ -54,9 +54,11 @@
                 <x-cotizacion.item titulo="Comisión por apertura">
                     <div x-text="numeroComas(row?.comisionPorApertura)"></div>
                 </x-cotizacion.item>
+                @if ($isAdmin)
                 <x-cotizacion.item titulo="Tasa de interés">
                     <div x-text="`${row?.interes}%`"></div>
                 </x-cotizacion.item>
+                @endif
                 <x-cotizacion.item x-show="row?.isSeguro" titulo="Seguro">
                     <div x-text="numeroComas(row?.valorSeguro)"></div>
                 </x-cotizacion.item>

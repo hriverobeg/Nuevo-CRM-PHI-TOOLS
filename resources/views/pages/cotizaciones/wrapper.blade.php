@@ -69,7 +69,7 @@
         </div>
       </div>
 
-    <x-modalcotizacion></x-modalcotizacion>
+    <x-modalcotizacion :isAdmin="$isAdmin"></x-modalcotizacion>
 
     <!-- cotizacion list -->
     <div class="relative pt-5">
