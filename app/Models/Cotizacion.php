@@ -81,6 +81,10 @@ class Cotizacion extends Model
         return $this->hasOne(Admin::class, 'id', 'cliente_id');
     }
 
+    public function admin() {
+        return $this->hasOne(Admin::class, 'id', 'admin_id');
+    }
+
     public function getFechaAttribute()
     {
         return $this->getFechaFormat($this->created_at);

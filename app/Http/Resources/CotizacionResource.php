@@ -18,7 +18,8 @@ class CotizacionResource extends JsonResource
 
         $extra = [
             'usuario' => new UsuarioResource($this->usuario),
-            'cliente' => new ClienteResource($this->cliente)
+            'cliente' => new ClienteResource($this->cliente),
+            'admin' => new ClienteResource($this->admin)
         ];
 
         return  array_merge($array, $extra);

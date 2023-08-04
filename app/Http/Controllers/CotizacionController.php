@@ -90,7 +90,7 @@ class CotizacionController extends Controller
             'comisionPorApertura'       => $request->comisionPorApertura ?? 0,
             'comisionPorcentaje'        => $request->comisionPorcentaje ?? $auth->comisionPorcentaje,
             'interes'                   => $request->interes ?? $auth->interes,
-            'valorSeguro'               => $request->valorSeguro,
+            'valorSeguro'               => $request->valorSeguro ?? 0,
             'tipoActivo'                => $request->tipoActivo,
             'otro'                      => $request->otro,
             'valorResidual24'           => $request->valorResidual24,
@@ -112,9 +112,14 @@ class CotizacionController extends Controller
 
         $cotizacion = Cotizacion::with('cliente', 'usuario')->latest()->first();
 
-        $email =  $cotizacion->usuario?->email ?? $cotizacion->cliente?->email;
 
-        Mail::to($email)->send(new CotizacionMail($cotizacion));
+        try {
+            $email =  $cotizacion->usuario?->email ?? $cotizacion->cliente?->email;
+            Mail::to($email)->send(new CotizacionMail($cotizacion));
+        } catch (\Throwable $th) {
+            logger($th);
+        }
+
 
         return $this->redirectIndex($this->page);
     }
