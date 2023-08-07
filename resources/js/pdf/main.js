@@ -74,7 +74,7 @@ async function createPDF(param, cliente) {
 
     const pdfWidthHalf = pdfWidth / 2;
 
-    let image = 'https://iili.io/HUA4d3F.jpg';
+    let image = 'https://iili.io/HUA4AyG.png';
     let ext = 'jpg';
     let ancho = pdfWidthHalf - 20
     let alto = 31

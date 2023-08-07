@@ -21,6 +21,7 @@ const Formulario = () => {
     clientes,
     isAdmin,
     usuarios,
+    maxValor
   } = useFoumulario({
     row: null,
   });
@@ -160,10 +161,10 @@ const Formulario = () => {
                 </>
               )}
               <Input
-                label='Valor seguro'
+                label='Valor del seguro anual'
                 name='valorSeguro'
                 value={form.valorSeguro}
-                placeholder='Valor seguro'
+                placeholder='Valor del seguro anual'
                 onChange={onChangeFormNumber}
                 type='number'
                 className='mb-2'
@@ -174,7 +175,7 @@ const Formulario = () => {
                 value={form.valorResidual24}
                 onChange={onChangeFormNumber}
                 step={0.5}
-                max={50}
+                max={maxValor[24]}
               />
               <InputRange
                 label='Valor residual 36 meses'
@@ -182,7 +183,7 @@ const Formulario = () => {
                 value={form.valorResidual36}
                 onChange={onChangeFormNumber}
                 step={0.5}
-                max={50}
+                max={maxValor[36]}
               />
               <InputRange
                 label='Valor residual 48 meses'
@@ -190,7 +191,7 @@ const Formulario = () => {
                 value={form.valorResidual48}
                 onChange={onChangeFormNumber}
                 step={0.5}
-                max={50}
+                max={maxValor[48]}
               />
               <InputRange
                 label='Valor residual 60 meses'
@@ -198,18 +199,12 @@ const Formulario = () => {
                 value={form.valorResidual60}
                 onChange={onChangeFormNumber}
                 step={0.5}
-                max={50}
+                max={maxValor[60]}
               />
               <Checkbox
                 label='¿Tiene Seguro?'
                 name='isSeguro'
                 value={form.isSeguro}
-                onChange={handleChangeCheckbox}
-              />
-              <Checkbox
-                label='¿Tiene telemetría?'
-                name='isTelematics'
-                value={form.isTelematics}
                 onChange={handleChangeCheckbox}
               />
               <Checkbox
@@ -257,7 +252,9 @@ const Formulario = () => {
         </div>
       </div>
       <div className='w-full'>
-        <div className='panel mb-4'>
+        {form.anticipo !== '' && form.valorActivo != '' ? (
+            <>
+            <div className='panel mb-4'>
           <TableDatosActivos {...form} />
         </div>
         <div className='panel mb-4'>
@@ -274,6 +271,17 @@ const Formulario = () => {
             <TableAlivioFiscal {...form} />
           </div>
         )}
+            </>
+        ) : (
+            <div className='text-center'>
+                <h2 className='text-xl'>Esperando datos faltantes</h2>
+                <ul className='text-left'>
+                    {form.anticipo === '' && <li>- Anticipo</li>}
+                    {form.valorActivo === '' && <li>- Valor activo</li>}
+                </ul>
+            </div>
+        )}
+
       </div>
     </div>
   );

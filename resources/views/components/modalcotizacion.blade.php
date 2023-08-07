@@ -39,7 +39,7 @@
                     <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'B-std'" src="{{ asset('assets/images/suv.png') }}" alt="SUV">
                     <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'otro'" src="{{ asset('assets/images/otro.jpeg') }}" alt="otro">
                 </div>
-                <x-cotizacion.item titulo="Cotizador">
+                <x-cotizacion.item titulo="Usuario">
                     <div x-text="row?.admin?.nombre"></div>
                 </x-cotizacion.item>
                 <div x-show="row?.cliente !== null">

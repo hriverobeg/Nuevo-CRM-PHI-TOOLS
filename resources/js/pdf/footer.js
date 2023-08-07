@@ -3,7 +3,7 @@ export const footerPDF = (doc) => {
     const margin = (num) => num * 5;
     const height = doc.internal.pageSize.height - 30;
 
-    doc.setFontSize(8);
+    doc.setFontSize(6);
     doc.setFont(undefined, 'normal');
     doc.text('*Precios incluyen IVA.', width, height);
     doc.text(
@@ -12,7 +12,7 @@ export const footerPDF = (doc) => {
       height + margin(1)
     );
     doc.text(
-      '*Los trámites vehiculares se incluirán en el pago inicial.',
+      '*Los trámites relacionados correrán a cargo del cliente y se incluirán en el pago inicial.',
       width,
       height + margin(2)
     );

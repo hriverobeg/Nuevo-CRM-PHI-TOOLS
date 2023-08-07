@@ -68,6 +68,9 @@ const useFoumulario = ({ row }) => {
   const [token, setToken] = useState('');
   const [clientes, setClientes] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
+  const [maxValor, setMaxValor] = useState({
+    24: 50, 36: 50, 48: 50, 60: 50
+  })
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -162,14 +165,19 @@ const useFoumulario = ({ row }) => {
   function onChangeTipoActivo({ target: { value } }) {
     const meses = [24, 36, 48, 60];
     const newData = {};
+    const newMaxValor = {...maxValor}
 
     meses.forEach((m) => {
       newData[`valorResidual${m}`] = calcularResiduo(value, m, 100);
+      newMaxValor[m] = calcularResiduo(value, m, 100) + 5
     });
+
+    setMaxValor(newMaxValor)
 
     setForm({
       ...form,
       ...newData,
+      isTelematics: value === 'V-std' || value === 'B-std' ? true : false,
       tipoActivo: value,
     });
   }
@@ -201,6 +209,7 @@ const useFoumulario = ({ row }) => {
     clientes,
     usuarios,
     isAdmin,
+    maxValor
   };
 };
 

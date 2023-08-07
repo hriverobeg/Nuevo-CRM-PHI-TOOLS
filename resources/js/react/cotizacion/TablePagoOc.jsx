@@ -43,7 +43,7 @@ const TablePagoOc = ({
           {is60 && <td id='vr60'>{numeroComas(vR60)}</td>}
         </tr>
         <tr>
-          <td>Renta en depósito</td>
+          <td>(Renta en depósito)</td>
           {is24 && <td id='renta24_r'>{numeroComas(pagoRenta24)}</td>}
           {is36 && <td id='renta36_r'>{numeroComas(pagoRenta36)}</td>}
           {is48 && <td id='renta48_r'>{numeroComas(pagoRenta48)}</td>}
