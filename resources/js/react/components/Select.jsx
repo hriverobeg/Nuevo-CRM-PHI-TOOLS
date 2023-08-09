@@ -17,7 +17,7 @@ const Select = ({
       <label htmlFor={`input${name}`}>{label}</label>
       <select
         onChange={onChange}
-        value={value}
+        value={value ?? ''}
         id={`input${name}`}
         name={name}
         className='form-select text-white-dark'

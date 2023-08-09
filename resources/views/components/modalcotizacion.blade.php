@@ -72,9 +72,14 @@
                     <div x-text="`${row?.interes}%`"></div>
                 </x-cotizacion.item>
                 @endif
-                <x-cotizacion.item x-show="row?.isSeguro" titulo="Seguro">
-                    <div x-text="numeroComas(row?.valorSeguro)"></div>
+                <x-cotizacion.item titulo="¿Tiene Seguro?">
+                    <div x-text="row?.isSeguro ? 'Si' : 'No'"></div>
                 </x-cotizacion.item>
+                <div x-show="row?.isSeguro">
+                    <x-cotizacion.item titulo="Seguro">
+                        <div x-text="numeroComas(row?.valorSeguro)"></div>
+                    </x-cotizacion.item>
+                </div>
                 <x-cotizacion.item titulo="¿Tiene telematics?">
                     <div x-text="row?.isTelematics ? 'Si' : 'No'"></div>
                 </x-cotizacion.item>

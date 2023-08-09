@@ -13,7 +13,7 @@ const defaultValores = {
   comisionPorApertura: 0,
   comisionPorcentaje: 2.5,
   interes: 27,
-  valorSeguro: '',
+  valorSeguro: 0,
   tipoActivo: '',
   otro: '',
   valorResidual24: 45,
@@ -177,7 +177,7 @@ const useFoumulario = ({ row }) => {
     setForm({
       ...form,
       ...newData,
-      isTelematics: value === 'V-std' || value === 'B-std' ? true : false,
+      isTelematics: (value === 'V-std' || value === 'B-std') ? true : false,
       tipoActivo: value,
     });
   }

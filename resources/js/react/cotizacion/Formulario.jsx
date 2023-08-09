@@ -33,6 +33,7 @@ const Formulario = () => {
           <form action='/cotizaciones' method='post' onSubmit={() => console.table(form)}>
             <input type='hidden' name='_token' value={token} />
             <input type='hidden' name='comisionPorApertura' value={form.comisionPorApertura} />
+            <input type="hidden" name="isTelematics" value={form.isTelematics ? 1 : 0} />
             <div className='grid grid-cols-1 gap-5 lg:grid-cols-2'>
               {isAdmin ? (
                 <Select
@@ -160,15 +161,17 @@ const Formulario = () => {
                   </div>
                 </>
               )}
-              <Input
-                label='Valor del seguro anual'
-                name='valorSeguro'
-                value={form.valorSeguro}
-                placeholder='Valor del seguro anual'
-                onChange={onChangeFormNumber}
-                type='number'
-                className='mb-2'
-              />
+              {form.isSeguro ? (
+                 <Input
+                 label='Valor del seguro anual'
+                 name='valorSeguro'
+                 value={form.valorSeguro}
+                 placeholder='Valor del seguro anual'
+                 onChange={onChangeFormNumber}
+                 type='number'
+                 className='mb-2'
+               />
+              ) :  <div />}
               <InputRange
                 label='Valor residual 24 meses'
                 name='valorResidual24'
