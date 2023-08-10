@@ -25,7 +25,7 @@ document.addEventListener('alpine:init', () => {
       this.isLoadingPdf = true;
       await window.createPDF(this.row, {
         nombre: this.row?.usuario?.nombre ?? this.row?.cliente?.nombre,
-        empresa: this.row?.usuario?.nombre ?? this.row?.cliente?.empresa,
+        empresa: this.row?.usuario ? '' : this.row?.cliente?.empresa,
       });
       this.isLoadingPdf = false;
     },
