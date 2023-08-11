@@ -335,7 +335,7 @@ async function createPDF(param, cliente) {
             ? [[numeroComas(newMeses[0].vr - newMeses[0].pagoRentaMes)]]
             : []),
           ...(item.is36
-            ? [[numeroComas(newMeses[1].vr - newMeses[0].pagoRentaMes)]]
+            ? [[numeroComas(newMeses[1].vr - newMeses[1].pagoRentaMes)]]
             : []),
           ...(item.is48
             ? [[numeroComas(newMeses[2].vr - newMeses[2].pagoRentaMes)]]
