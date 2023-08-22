@@ -10,7 +10,8 @@ const Select = ({
   onChange,
   optionId = 'id',
   optionName = 'name',
-  optionRender = null
+  optionRender = null,
+  required = false
 }) => {
   return (
     <div className={className}>
@@ -20,6 +21,7 @@ const Select = ({
         value={value ?? ''}
         id={`input${name}`}
         name={name}
+        required={required}
         className='form-select text-white-dark'
       >
         <option value="">

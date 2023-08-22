@@ -46,6 +46,7 @@ const Formulario = () => {
                   optionName='nombre'
                   optionRender={(item) => `${item.nombre} (${item.email})`}
                   onChange={onChangeForm}
+                  required
                 />
               ) : (
                 <Select
@@ -57,6 +58,7 @@ const Formulario = () => {
                   options={usuarios}
                   optionName='nombre'
                   onChange={onChangeForm}
+                  required
                 />
               )}
 
@@ -67,6 +69,7 @@ const Formulario = () => {
                 placeholder='Propuesta de arrendamiento puro...'
                 onChange={onChangeForm}
                 className='lg:col-span-2'
+                required
               />
               <Select
                 label='Tipo de activo'
@@ -74,6 +77,7 @@ const Formulario = () => {
                 value={form.tipoActivo}
                 placeholder='Selcciona el tipo de activo...'
                 onChange={onChangeTipoActivo}
+                required
                 options={[
                   { id: 'V-std', name: 'Vehículo' },
                   { id: 'B-std', name: 'Vehículo blindado' },
@@ -87,6 +91,7 @@ const Formulario = () => {
                 value={form.nombreActivo}
                 placeholder='Nombre del activo'
                 onChange={onChangeForm}
+                required
               />
               <Input
                 label='Año'
@@ -95,6 +100,7 @@ const Formulario = () => {
                 placeholder='Año'
                 onChange={onChangeFormNumber}
                 type='number'
+                required
               />
               <Input
                 label='Valor activo'
@@ -102,6 +108,7 @@ const Formulario = () => {
                 value={form.valorActivo}
                 placeholder='Valor del activo'
                 onChange={onChangeFormNumber}
+                required
               />
               <div>
                 <Input
@@ -112,6 +119,7 @@ const Formulario = () => {
                   onChange={onChangeFormNumber}
                   type='number'
                   className='mb-2'
+                  required
                 />
                 <InputRange
                   name='anticipoPorcentaje'
@@ -132,6 +140,7 @@ const Formulario = () => {
                       onChange={onChangeFormNumber}
                       type='number'
                       className='mb-2'
+                      required
                     />
                     <InputRange
                       name='comisionPorcentaje'
@@ -139,6 +148,7 @@ const Formulario = () => {
                       onChange={onChangeFormNumber}
                       step={0.5}
                       max={5}
+                      required
                     />
                   </div>
                   <div>
@@ -150,6 +160,7 @@ const Formulario = () => {
                       onChange={onChangeFormNumber}
                       type='number'
                       className='mb-2'
+                      required
                     />
                     <InputRange
                       name='interes'
@@ -170,6 +181,7 @@ const Formulario = () => {
                  onChange={onChangeFormNumber}
                  type='number'
                  className='mb-2'
+                 required
                />
               ) :  <div />}
               <InputRange
@@ -246,7 +258,7 @@ const Formulario = () => {
                 />
               </div>
               <div className='lg:col-span-2 flex justify-end'>
-                <button type='submit' className='btn btn-primary'>
+                <button disabled={form.anticipo === '' && form.valorActivo === ''} type='submit' className='btn btn-primary'>
                   Guardar
                 </button>
               </div>
@@ -255,7 +267,7 @@ const Formulario = () => {
         </div>
       </div>
       <div className='w-full'>
-        {form.anticipo !== '' && form.valorActivo != '' ? (
+        {form.anticipo !== '' && form.valorActivo !== '' ? (
             <>
             <div className='panel mb-4'>
           <TableDatosActivos {...form} />
