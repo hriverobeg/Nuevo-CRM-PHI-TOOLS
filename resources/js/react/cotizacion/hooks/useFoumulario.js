@@ -88,6 +88,7 @@ const useFoumulario = ({ row }) => {
     if (!isAdmin) {
         onChangeFormNumber({ target: { name: 'interes', value: interesCliente } })
         onChangeFormNumber({ target: { name: 'comisionPorcentaje', value: comisionPorcentajeCliente } })
+        handleChangeCheckbox('isSeguro', false)
     }
 
   }, []);

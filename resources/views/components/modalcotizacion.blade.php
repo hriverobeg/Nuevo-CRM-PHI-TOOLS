@@ -33,11 +33,9 @@
                 x-text="row?.tituloCotizacion" />
             </div>
             <div class="p-5">
-                <div class="mb-4 text-center">
-                    <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'C-std'" src="{{ asset('assets/images/computadoras.webp') }}" alt="Computadoras">
+                <div x-sho="row?.tipoActivo === 'V-std' || row?.tipoActivo === 'B-std'" class="mb-4 text-center">
                     <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'V-std'"  src="{{ asset('assets/images/sedan.png') }}" alt="Sedán">
                     <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'B-std'" src="{{ asset('assets/images/suv.png') }}" alt="SUV">
-                    <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'otro'" src="{{ asset('assets/images/otro.jpeg') }}" alt="otro">
                 </div>
                 <x-cotizacion.item titulo="Usuario">
                     <div x-text="row?.admin?.nombre"></div>

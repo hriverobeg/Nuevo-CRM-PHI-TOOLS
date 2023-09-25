@@ -50,7 +50,7 @@ const TableAlivioFiscal = (formProps) => {
   });
 
   return (
-    <Table titulo='Alivio Fiscal'>
+    <Table titulo='Tabla de Alivio Fiscal'>
       <thead>
         <tr>
           <th>Concepto</th>

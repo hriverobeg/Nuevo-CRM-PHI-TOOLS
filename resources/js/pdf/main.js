@@ -99,8 +99,9 @@ async function createPDF(param, cliente) {
     }
 
 
-
-    doc.addImage(image, ext, 14, 20, ancho, alto);
+    if (item.tipoActivo === 'V-std' || item.tipoActivo === 'B-std') {
+        doc.addImage(image, ext, 14, 20, ancho, alto);
+    }
 
     doc
       .setFontSize(14)
@@ -350,7 +351,7 @@ async function createPDF(param, cliente) {
 
     if (item.isAlivioFiscal) {
       var finalY = doc.lastAutoTable.finalY;
-      doc.setFontSize(11).text('Alivio Fiscal', 14, finalY + 10);
+      doc.setFontSize(11).text('Tabla de Alivio Fiscal', 14, finalY + 10);
       autoTable(doc, {
         startY: finalY + 15,
         head: [

@@ -72,20 +72,23 @@
     <x-modalcotizacion :isAdmin="$isAdmin"></x-modalcotizacion>
 
     <!-- cotizacion list -->
-    <div class="relative pt-5">
+    <div class="relative pt-5 h-full">
         <div class="perfect-scrollbar -mx-2 h-full">
-            <div class="flex flex-nowrap items-start gap-5 overflow-x-auto px-2 pb-2">
+            <div class="flex flex-nowrap h-full items-stretch gap-5 overflow-x-auto px-2 pb-2">
                 <template x-for="board in boards" :key="board.id">
                     <div class="panel w-80 flex-none">
                         <div class="mb-5 flex justify-between">
                             <h4 x-text="board.nombre" class="text-base font-semibold"></h4>
                         </div>
-                        <div :id="`board-${board.id}`" class="sortable-list min-h-[150px]" :data-id="board.id">
+                        <div :id="`board-${board.id}`" class="sortable-list min-h-[150px] h-full" :data-id="board.id">
                             <template x-for="cotizacion in board.cotizaciones">
                                 <div :id="`cotizacion-${cotizacion.id}`" :key="board.id + '' + cotizacion.id" :data-id="cotizacion.id"
                                     class="mb-5 cursor-move space-y-3 rounded-md bg-[#f4f4f4] p-3 pb-5 shadow dark:bg-[#262e40]">
                                     <div class="text-base font-medium" x-text="cotizacion.tituloCotizacion"></div>
                                     <p class="break-all" x-text="cotizacion.nombreActivo"></p>
+                                    <div x-show="cotizacion?.admin !== null">
+                                        <p class="break-all" x-text="cotizacion?.admin?.nombre"></p>
+                                    </div>
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center font-medium hover:text-primary">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -130,6 +133,7 @@
     <script>
         var boardsLaravel = @json($boards);
         var isAdmin = {{ json_encode($isAdmin) }}
+        console.log(boardsLaravel)
     </script>
     <script src="/assets/js/Sortable.min.js"></script>
     <script src="/assets/js/cotizaciones.js?v=1.0.1"></script>

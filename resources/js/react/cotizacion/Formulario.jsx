@@ -21,7 +21,7 @@ const Formulario = () => {
     clientes,
     isAdmin,
     usuarios,
-    maxValor
+    maxValor,
   } = useFoumulario({
     row: null,
   });
@@ -30,10 +30,10 @@ const Formulario = () => {
     <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
       <div className='w-full'>
         <div className='panel'>
-          <form action='/cotizaciones' method='post' onSubmit={() => console.table(form)}>
+          <form action='/cotizaciones' method='post'>
             <input type='hidden' name='_token' value={token} />
             <input type='hidden' name='comisionPorApertura' value={form.comisionPorApertura} />
-            <input type="hidden" name="isTelematics" value={form.isTelematics ? 1 : 0} />
+            <input type='hidden' name='isTelematics' value={form.isTelematics ? 1 : 0} />
             <div className='grid grid-cols-1 gap-5 lg:grid-cols-2'>
               {isAdmin ? (
                 <Select
@@ -172,18 +172,20 @@ const Formulario = () => {
                   </div>
                 </>
               )}
-              {form.isSeguro ? (
-                 <Input
-                 label='Valor del seguro anual'
-                 name='valorSeguro'
-                 value={form.valorSeguro}
-                 placeholder='Valor del seguro anual'
-                 onChange={onChangeFormNumber}
-                 type='number'
-                 className='mb-2'
-                 required
-               />
-              ) :  <div />}
+              {(form.isSeguro && isAdmin) ? (
+                <Input
+                  label='Valor del seguro anual'
+                  name='valorSeguro'
+                  value={form.valorSeguro}
+                  placeholder='Valor del seguro anual'
+                  onChange={onChangeFormNumber}
+                  type='number'
+                  className='mb-2'
+                  required
+                />
+              ) : (
+                <div />
+              )}
               <InputRange
                 label='Valor residual 24 meses'
                 name='valorResidual24'
@@ -216,12 +218,14 @@ const Formulario = () => {
                 step={0.5}
                 max={maxValor[60]}
               />
-              <Checkbox
-                label='¿Tiene Seguro?'
-                name='isSeguro'
-                value={form.isSeguro}
-                onChange={handleChangeCheckbox}
-              />
+              {isAdmin && (
+                <Checkbox
+                  label='¿Tiene Seguro?'
+                  name='isSeguro'
+                  value={form.isSeguro}
+                  onChange={handleChangeCheckbox}
+                />
+              )}
               <Checkbox
                 label='¿Tiene Alivio Fiscal?'
                 name='isAlivioFiscal'
@@ -258,7 +262,11 @@ const Formulario = () => {
                 />
               </div>
               <div className='lg:col-span-2 flex justify-end'>
-                <button disabled={form.anticipo === '' && form.valorActivo === ''} type='submit' className='btn btn-primary'>
+                <button
+                  disabled={form.anticipo === '' && form.valorActivo === ''}
+                  type='submit'
+                  className='btn btn-primary'
+                >
                   Guardar
                 </button>
               </div>
@@ -268,35 +276,34 @@ const Formulario = () => {
       </div>
       <div className='w-full'>
         {form.anticipo !== '' && form.valorActivo !== '' ? (
-            <>
+          <>
             <div className='panel mb-4'>
-          <TableDatosActivos {...form} />
-        </div>
-        <div className='panel mb-4'>
-          <TablePagoInicial {...form} />
-        </div>
-        <div className='panel mb-4'>
-          <TablePagoMensual {...form} />
-        </div>
-        <div className='panel'>
-          <TablePagoOc {...form} />
-        </div>
-        {form.isAlivioFiscal && (
-          <div className='panel mt-4'>
-            <TableAlivioFiscal {...form} />
+              <TableDatosActivos {...form} />
+            </div>
+            <div className='panel mb-4'>
+              <TablePagoInicial {...form} />
+            </div>
+            <div className='panel mb-4'>
+              <TablePagoMensual {...form} />
+            </div>
+            <div className='panel'>
+              <TablePagoOc {...form} />
+            </div>
+            {form.isAlivioFiscal && (
+              <div className='panel mt-4'>
+                <TableAlivioFiscal {...form} />
+              </div>
+            )}
+          </>
+        ) : (
+          <div className='text-center'>
+            <h2 className='text-xl'>Esperando datos faltantes</h2>
+            <ul className='text-left'>
+              {form.anticipo === '' && <li>- Anticipo</li>}
+              {form.valorActivo === '' && <li>- Valor activo</li>}
+            </ul>
           </div>
         )}
-            </>
-        ) : (
-            <div className='text-center'>
-                <h2 className='text-xl'>Esperando datos faltantes</h2>
-                <ul className='text-left'>
-                    {form.anticipo === '' && <li>- Anticipo</li>}
-                    {form.valorActivo === '' && <li>- Valor activo</li>}
-                </ul>
-            </div>
-        )}
-
       </div>
     </div>
   );
