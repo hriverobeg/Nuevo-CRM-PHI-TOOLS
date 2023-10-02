@@ -49,6 +49,10 @@ Route::get('/clear-cache', function() {
     return 'Application cache cleared';
 });
 
+Route::get('/storage-link', function() {
+    return \Artisan::call('storage:link');
+});
+
 Route::get('/optimize-clear', function() {
     \Artisan::call('optimize:clear');
     return 'View cache cleared';

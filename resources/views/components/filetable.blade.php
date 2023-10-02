@@ -11,7 +11,7 @@
             @foreach ($files as $file)
             <tr>
                 <td class="whitespace-nowrap">
-                    <a href="{{ asset('documentos/' . $file->nombre) }}" target="_blank">
+                    <a href="{{ asset('documents/' . $file->nombre) }}" target="_blank">
                         {{ $file->nombre }}
                     </a>
                 </td>

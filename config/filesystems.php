@@ -46,10 +46,9 @@ return [
 
         'documents' => [
             'driver' => 'local',
-            'root' => storage_path('app/documents'),
-            'url' => env('APP_URL').'/documents',
+            'root'   => public_path() . '/documents',
+            'url' => env('APP_URL').'/public',
             'visibility' => 'public',
-            'throw' => false,
         ],
 
         's3' => [
@@ -78,7 +77,6 @@ return [
     */
 
     'links' => [
-        public_path('documentos') => storage_path('app/documents')
     ],
 
 ];
