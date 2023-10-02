@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\BoardEnum;
 use App\Traits\DateFormatTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,6 +38,7 @@ class Cotizacion extends Model
         'valorResidual36' => 'double',
         'valorResidual48' => 'double',
         'valorResidual60' => 'double',
+        'board_id' => BoardEnum::class
     ];
 
     protected $fillable = [
@@ -72,6 +74,10 @@ class Cotizacion extends Model
         'is60',
         'isAlivioFiscal',
     ];
+
+    public function board() {
+        return $this->hasOne(Board::class, 'id', 'board_id');
+    }
 
     public function usuario() {
         return $this->hasOne(Usuario::class, 'id', 'usuario_id');

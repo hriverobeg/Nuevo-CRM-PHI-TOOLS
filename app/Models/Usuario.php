@@ -17,6 +17,10 @@ class Usuario extends Model
         'nombre',
         'telefono',
         'email',
-        'admin_id'
+        'admin_id',
+        'empresa',
+        'direccion_empresa',
+        'giro_empresa',
+        'website_empresa'
     ];
 }

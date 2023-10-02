@@ -50,6 +50,10 @@
             <!-- end header section -->
 
             <div class="animate__animated p-6" :class="[$store.app.animation]">
+                @if (Session::has('success'))
+                <x-alert.success>{{ Session::get('success') }}</x-alert.success>
+                @endif
+
                 <!-- start main content section -->
                 @yield('content')
 

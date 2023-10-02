@@ -74,7 +74,7 @@
     <!-- cotizacion list -->
     <div class="relative pt-5 h-full">
         <div class="perfect-scrollbar -mx-2 h-full">
-            <div class="flex flex-nowrap h-full items-stretch gap-5 overflow-x-auto px-2 pb-2">
+            <div style="overflow-y: hidden" class="flex flex-nowrap h-full items-stretch gap-5 overflow-x-auto px-2 pb-2">
                 <template x-for="board in boards" :key="board.id">
                     <div class="panel w-80 flex-none">
                         <div class="mb-5 flex justify-between">

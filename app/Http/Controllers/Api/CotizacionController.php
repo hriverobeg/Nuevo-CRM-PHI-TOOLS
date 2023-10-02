@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\BoardEnum;
 use App\Exceptions\DirtyException;
 use App\Http\Controllers\Controller;
+use App\Models\Board;
 use App\Models\Cotizacion;
+use App\Models\Notificacion;
+use App\Services\NotificacionService;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -48,6 +53,24 @@ class CotizacionController extends Controller
         }
 
         $cotizacion->save();
+
+        $auth = Auth::user();
+        NotificacionService::moverCotizacion($auth, $cotizacion);
+        if ($cotizacion->board_id == BoardEnum::ACEPTADAS) {
+            NotificacionService::usuarioPropuestaAceptada($cotizacion->cliente ?? $cotizacion->admin);
+        }
+
+        if ($cotizacion->board_id == BoardEnum::AUTORIZADAS) {
+            NotificacionService::usuarioPropuestaAutorizada($cotizacion->admin, $auth, $cotizacion);
+        }
+
+        if ($cotizacion->board_id == BoardEnum::EJECUTADAS) {
+            NotificacionService::usuarioPropuestaEjecutada($cotizacion->admin, $auth, $cotizacion);
+        }
+
+        if ($cotizacion->board_id == BoardEnum::RECHAZADAS) {
+            NotificacionService::usuarioPropuestaRechazada($cotizacion->admin, $auth, $cotizacion);
+        }
 
         return Response::json($cotizacion);
     }

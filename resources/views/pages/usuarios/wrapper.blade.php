@@ -10,6 +10,7 @@
   var headings = ['ID', 'Nombre', 'Email', 'Teléfono', 'Acciones']
   var data = dataLaravel.map(m => ([m.id, m.nombre, m.email, m.telefono, m.id]))
   var page = '/clientes'
+  var isView = true
 
   var formData = {
     id: null,

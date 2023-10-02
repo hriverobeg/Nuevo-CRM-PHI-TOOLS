@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Board;
 use App\Models\Cotizacion;
 use App\Models\Usuario;
+use App\Services\NotificacionService;
 use App\Traits\RedirectTrait;
 use Auth;
 use Illuminate\Http\Request;
@@ -112,6 +113,7 @@ class CotizacionController extends Controller
 
         $cotizacion = Cotizacion::with('cliente', 'usuario')->latest()->first();
 
+        NotificacionService::creadoCotizacion($auth, $cotizacion);
 
         try {
             $email =  $cotizacion->usuario?->email ?? $cotizacion->cliente?->email;
@@ -153,8 +155,11 @@ class CotizacionController extends Controller
      */
     public function destroy(int $id)
     {
+        $auth = Auth::user();
         $cotizacion = Cotizacion::findOrFail($id);
         $cotizacion->delete();
+
+        NotificacionService::eliminadoCotizacion($auth, $cotizacion);
 
         return $this->redirectIndex($this->page);
     }

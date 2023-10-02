@@ -7,6 +7,8 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\CotizacionDescargarController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificacionController;
+use App\Http\Controllers\UsuarioArchivoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Middleware\VerifyIsAdmin;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +63,8 @@ Route::middleware('auth')->group(function() {
   Route::resource('/admin', AdminController::class)->middleware(VerifyIsAdmin::class);
   Route::get('/dashboard-admin', [DashboardController::class, 'admin'])->middleware(VerifyIsAdmin::class);
   Route::get('/dashboard-cliente', [DashboardController::class, 'cliente']);
+  Route::resource('/notificaciones', NotificacionController::class)->only('index', 'destroy');
+  Route::resource('/usuario_archivo', UsuarioArchivoController::class)->only('store', 'destroy');
   Route::resource('/usuarios', ClienteController::class)->names('clientes')->middleware(VerifyIsAdmin::class);
   Route::resource('/clientes', UsuarioController::class)->names('usuarios');
   Route::resource('/cotizaciones', CotizacionController::class);
