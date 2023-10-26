@@ -6,7 +6,7 @@ const defaultValores = {
   usuario_id: null,
   nombreActivo: '',
   anio: '',
-  tituloCotizacion: '',
+  tituloCotizacion: 'Propuesta de arrendamiento puro',
   valorActivo: '',
   anticipo: '',
   anticipoPorcentaje: 0,

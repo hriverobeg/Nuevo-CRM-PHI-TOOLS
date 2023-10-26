@@ -84,7 +84,7 @@
                             <template x-for="cotizacion in board.cotizaciones">
                                 <div :id="`cotizacion-${cotizacion.id}`" :key="board.id + '' + cotizacion.id" :data-id="cotizacion.id"
                                     class="mb-5 cursor-move space-y-3 rounded-md bg-[#f4f4f4] p-3 pb-5 shadow dark:bg-[#262e40]">
-                                    <div class="text-base font-medium" x-text="cotizacion.tituloCotizacion"></div>
+                                    <div class="text-base font-medium" x-text="titulo(cotizacion)"></div>
                                     <p class="break-all" x-text="cotizacion.nombreActivo"></p>
                                     <div x-show="cotizacion?.admin !== null">
                                         <p class="break-all" x-text="cotizacion?.admin?.nombre"></p>

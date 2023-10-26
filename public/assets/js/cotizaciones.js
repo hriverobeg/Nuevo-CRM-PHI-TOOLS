@@ -40,6 +40,13 @@ document.addEventListener('alpine:init', () => {
 
       this.isDeleteModal = true;
     },
+    titulo(row) {
+        const cliente = row?.cliente?.nombre ?? row?.admin?.nombre
+        return `AP-${this.padWithLeadingZeros(row.id, 5)}-${cliente}`
+    },
+    padWithLeadingZeros(num, totalLength) {
+        return String(num).padStart(totalLength, '0');
+    },
     numeroComas(num) {
       const numCalc = num ? Number(num).toFixed(0) : '';
       return '$' + numCalc.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');

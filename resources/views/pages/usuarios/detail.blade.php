@@ -98,11 +98,11 @@
                 <h6 class="mb-5 text-lg font-bold">Expediente de crédito</h6>
                 <div class="flex flex-col sm:flex-row">
                     <div class="grid flex-1 grid-cols-1 gap-5 sm:grid-cols-2">
-                        <h5 class="text-md font-bold md:col-span-2">Información general</h5>
+                        <h5 class="text-lg font-bold md:col-span-2">Información general</h5>
                         <x-file :files="$identificacionRepresentanteLegal" name="identificacion_representante_legal" label="Identificación de representante legal"/>
                         <x-file :files="$comprobante_docimicilio_representante" name="comprobante_docimicilio_representante" label="Comprobante de domicilio representante legal"/>
                         <x-file :files="$comprobante_docimicilio_empresa" name="comprobante_docimicilio_empresa" label="Comprobante de domicilio de la empresa"/>
-                        <h5 class="text-md font-bold md:col-span-2">Información financiera</h5>
+                        <h5 class="text-lg font-bold md:col-span-2 mt-4">Información financiera</h5>
                         <x-file :files="$curriculum_empresa" name="curriculum_empresa" label="Curriculum de la empresa"/>
                         <x-file :files="$formato_buro_legal" name="formato_buro_legal" label="Formato de autorización de buró de crédito representante legal"/>
                         <x-file :files="$formato_buro_empresa" name="formato_buro_empresa" label="Formato de autorización de buró de crédito de empresa"/>
@@ -116,6 +116,7 @@
                         <x-file :files="$estados_financieros_last_year" name="estados_financieros_last_year" label="Estados financieros y analíticas último año"/>
                         <x-file :files="$estados_financieros_penultimo_year" name="estados_financieros_penultimo_year" label="Estados financieros y analíticas penúltimo año"/>
                         <x-file :files="$estados_bancarios_3_meses" name="estados_bancarios_3_meses" label="Estados de cuenta bancarios últimos 3 meses"/>
+                        <h5 class="text-lg font-bold md:col-span-2 mt-4">Información legal</h5>
                         <x-file :files="$constancia_fiscal" name="constancia_fiscal" label="Constancia de situación fiscal"/>
                         <x-file :files="$acta_constitutiva" name="acta_constitutiva" label="Acta constitutiva y acta de asamblea"/>
                         <x-file :files="$opinion_cumplimiento" name="opinion_cumplimiento" label="Opinión de cumplimiento"/>

@@ -34,6 +34,7 @@ const Formulario = () => {
             <input type='hidden' name='_token' value={token} />
             <input type='hidden' name='comisionPorApertura' value={form.comisionPorApertura} />
             <input type='hidden' name='isTelematics' value={form.isTelematics ? 1 : 0} />
+            <input type="hidden" name="tituloCotizacion" value={form.tituloCotizacion} />
             <div className='grid grid-cols-1 gap-5 lg:grid-cols-2'>
               {isAdmin ? (
                 <Select
@@ -62,15 +63,6 @@ const Formulario = () => {
                 />
               )}
 
-              <Input
-                label='Titulo de la cotización'
-                name='tituloCotizacion'
-                value={form.tituloCotizacion}
-                placeholder='Propuesta de arrendamiento puro...'
-                onChange={onChangeForm}
-                className='lg:col-span-2'
-                required
-              />
               <Select
                 label='Tipo de activo'
                 name='tipoActivo'
@@ -227,7 +219,7 @@ const Formulario = () => {
                 />
               )}
               <Checkbox
-                label='¿Tiene Alivio Fiscal?'
+                label='Incluir tabla de alivio fiscal'
                 name='isAlivioFiscal'
                 value={form.isAlivioFiscal}
                 onChange={handleChangeCheckbox}
