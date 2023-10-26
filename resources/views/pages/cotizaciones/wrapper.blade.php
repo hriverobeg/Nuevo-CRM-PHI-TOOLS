@@ -136,6 +136,6 @@
         console.log(boardsLaravel)
     </script>
     <script src="/assets/js/Sortable.min.js"></script>
-    <script src="/assets/js/cotizaciones.js?v=1.0.1"></script>
+    <script src="/assets/js/cotizaciones.js?v=1.0.2"></script>
     @vite('resources/js/pdf/main.js')
 @endsection
