@@ -30,7 +30,7 @@
             </button>
             <div
                 class="bg-[#fbfbfb] py-3 text-lg font-medium ltr:pl-5 ltr:pr-[50px] rtl:pr-5 rtl:pl-[50px] dark:bg-[#121c2c]"
-                x-text="row?.tituloCotizacion" />
+                x-text="titulo(row)" />
             </div>
             <div class="p-5">
                 <div x-sho="row?.tipoActivo === 'V-std' || row?.tipoActivo === 'B-std'" class="mb-4 text-center">
