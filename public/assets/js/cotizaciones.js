@@ -19,6 +19,7 @@ document.addEventListener('alpine:init', () => {
     boards: boardsLaravel ?? [],
     isModalCotizacion: false,
     row: null,
+    buscar: '',
     isLoadingPdf: false,
     isDeleteModal: false,
     async downloadPdf() {
@@ -41,15 +42,30 @@ document.addEventListener('alpine:init', () => {
       this.isDeleteModal = true;
     },
     titulo(row) {
-        const cliente = row?.cliente?.nombre ?? row?.admin?.nombre
-        return `AP-${this.padWithLeadingZeros(row.id, 5)}-${cliente}`
+      const cliente = row?.cliente?.nombre ?? row?.admin?.nombre;
+      return `AP-${this.padWithLeadingZeros(row?.id, 5)}-${cliente}`;
     },
     padWithLeadingZeros(num, totalLength) {
-        return String(num).padStart(totalLength, '0');
+      return String(num).padStart(totalLength, '0');
     },
     numeroComas(num) {
       const numCalc = num ? Number(num).toFixed(0) : '';
       return '$' + numCalc.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    },
+    get filteredData() {
+      if (this.buscar === '') {
+        return this.boards;
+      }
+
+      return this.boards.map((b) => ({
+        ...b,
+        cotizaciones: b.cotizaciones.filter((c) => {
+            return this.titulo(c)
+            .replace(/ /g, '')
+            .toLowerCase()
+            .includes(this.buscar.replace(/ /g, '').toLowerCase())
+        }),
+      }));
     },
     initializeSortable() {
       setTimeout(() => {

@@ -1,8 +1,14 @@
 @extends('layouts.main')
 @section('content')
 <div x-data="cotizaciones">
-    <div class="flex">
+    <div class="flex justify-between">
         <x-buttonhref :href="route('cotizaciones.create')">Agregar cotización</x-buttonhref>
+        <div>
+            <div class="flex">
+                <input x-model="buscar" type="text" placeholder="Buscar..." class="form-input" required />
+            </div>
+        </div>
+
     </div>
 
     <div class="fixed inset-0 z-[999] hidden overflow-y-auto bg-[black]/60" :class="isDeleteModal && '!block'">
@@ -75,7 +81,7 @@
     <div class="relative pt-5 h-full">
         <div class="perfect-scrollbar -mx-2 h-full">
             <div style="overflow-y: hidden" class="flex flex-nowrap h-full items-stretch gap-5 overflow-x-auto px-2 pb-2">
-                <template x-for="board in boards" :key="board.id">
+                <template x-for="board in filteredData" :key="board.id">
                     <div class="panel w-80 flex-none">
                         <div class="mb-5 flex justify-between">
                             <h4 x-text="board.nombre" class="text-base font-semibold"></h4>
