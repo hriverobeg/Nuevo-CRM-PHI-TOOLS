@@ -93,6 +93,13 @@ const useFoumulario = ({ row }) => {
 
   }, []);
 
+  function onChangeSelect(option, item, id = 'id') {
+    setForm({
+        ...form,
+        [item.name]: option['id']
+    })
+  }
+
   function onChangeForm({ target: { name, value } }) {
     setForm({
       ...form,
@@ -163,7 +170,8 @@ const useFoumulario = ({ row }) => {
     });
   }
 
-  function onChangeTipoActivo({ target: { value } }) {
+  function onChangeTipoActivo({ id: value }) {
+    console.log(value)
     const meses = [24, 36, 48, 60];
     const newData = {};
     const newMaxValor = {...maxValor}
@@ -210,7 +218,8 @@ const useFoumulario = ({ row }) => {
     clientes,
     usuarios,
     isAdmin,
-    maxValor
+    maxValor,
+    onChangeSelect
   };
 };
 

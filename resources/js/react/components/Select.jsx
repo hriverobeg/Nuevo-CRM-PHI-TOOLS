@@ -1,4 +1,5 @@
 import React from 'react';
+import SelectComponent from 'react-select';
 
 const Select = ({
   className = '',
@@ -6,33 +7,30 @@ const Select = ({
   placeholder = '',
   label = '',
   name = '',
-  value = '',
+  value = null,
   onChange,
   optionId = 'id',
   optionName = 'name',
   optionRender = null,
-  required = false
+  required = false,
 }) => {
+  const optionLabel = (option) => option[optionName];
+  const optionValue = (option) => option[optionId]
+  const valueEnd = value ? options.find((f) => f[optionId] === value) : null;
+
   return (
     <div className={className}>
       <label htmlFor={`input${name}`}>{label}</label>
-      <select
-        onChange={onChange}
-        value={value ?? ''}
-        id={`input${name}`}
+      <SelectComponent
         name={name}
+        placeholder={placeholder}
+        value={valueEnd}
         required={required}
-        className='form-select text-white-dark'
-      >
-        <option value="">
-          {placeholder}
-        </option>
-        {options.map((item) => (
-          <option key={`option-${name}-${item[optionId]}`} value={item[optionId]}>
-            {optionRender ? optionRender(item) : item[optionName]}
-          </option>
-        ))}
-      </select>
+        onChange={onChange}
+        options={options}
+        getOptionLabel={optionRender ?? optionLabel}
+        getOptionValue={optionValue}
+      />
     </div>
   );
 };

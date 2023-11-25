@@ -106,7 +106,7 @@ async function createPDF(param, cliente) {
     doc
       .setFontSize(14)
       .setFont(undefined, 'bold')
-      .text(`Propuesta de arrendamiento puro ${item.tituloCotizacion}`, 14, 15);
+      .text('Propuesta de arrendamiento puro', 14, 15);
     autoTable(doc, {
       startY: 20,
       margin: { left: pdfWidth / 2 },

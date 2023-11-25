@@ -16,6 +16,7 @@ const Formulario = () => {
     token,
     onChangeForm,
     onChangeTipoActivo,
+    onChangeSelect,
     onChangeFormNumber,
     handleChangeCheckbox,
     clientes,
@@ -46,7 +47,7 @@ const Formulario = () => {
                   options={clientes}
                   optionName='nombre'
                   optionRender={(item) => `${item.nombre} (${item.email})`}
-                  onChange={onChangeForm}
+                  onChange={onChangeSelect}
                   required
                 />
               ) : (
@@ -58,7 +59,7 @@ const Formulario = () => {
                   className='lg:col-span-2'
                   options={usuarios}
                   optionName='nombre'
-                  onChange={onChangeForm}
+                  onChange={onChangeSelect}
                   required
                 />
               )}
