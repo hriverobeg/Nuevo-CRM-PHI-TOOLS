@@ -18,6 +18,7 @@
         rel="stylesheet" />
     <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/perfect-scrollbar.min.css" />
     <link rel="stylesheet" href="/assets/css/highlight.min.css" />
+    @yield('styles')
     <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css" />
     <link defer rel="stylesheet" type="text/css" media="screen" href="/assets/css/animate.css" />
     <script src="/assets/js/perfect-scrollbar.min.js"></script>

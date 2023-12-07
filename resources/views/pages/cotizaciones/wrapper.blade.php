@@ -139,9 +139,8 @@
     <script>
         var boardsLaravel = @json($boards);
         var isAdmin = {{ json_encode($isAdmin) }}
-        console.log(boardsLaravel)
     </script>
     <script src="/assets/js/Sortable.min.js"></script>
-    <script src="/assets/js/cotizaciones.js?v=1.0.2"></script>
+    <script src="/assets/js/cotizaciones.js?v=1.0.3"></script>
     @vite('resources/js/pdf/main.js')
 @endsection

@@ -9,6 +9,7 @@ import TablePagoInicial from './TablePagoInicial';
 import TablePagoMensual from './TablePagoMensual';
 import TablePagoOc from './TablePagoOc';
 import TableAlivioFiscal from './TableAlivioFiscal';
+import Table from '../components/Table';
 
 const Formulario = () => {
   const {
@@ -23,6 +24,8 @@ const Formulario = () => {
     isAdmin,
     usuarios,
     maxValor,
+    guardarCrearOtro,
+    formArray,
   } = useFoumulario({
     row: null,
   });
@@ -35,26 +38,43 @@ const Formulario = () => {
             <input type='hidden' name='_token' value={token} />
             <input type='hidden' name='comisionPorApertura' value={form.comisionPorApertura} />
             <input type='hidden' name='isTelematics' value={form.isTelematics ? 1 : 0} />
-            <input type="hidden" name="tituloCotizacion" value={form.tituloCotizacion} />
+            <input type='hidden' name='tituloCotizacion' value={form.tituloCotizacion} />
             <div className='grid grid-cols-1 gap-5 lg:grid-cols-2'>
               {isAdmin ? (
-                <Select
-                  label='Usuario'
-                  name='cliente_id'
-                  placeholder='Selcciona el usuario'
-                  value={form.cliente_id}
-                  className='lg:col-span-2'
-                  options={clientes}
-                  optionName='nombre'
-                  optionRender={(item) => `${item.nombre} (${item.email})`}
-                  onChange={onChangeSelect}
-                  required
-                />
+                <>
+                  {!form.usuario_id && (
+                    <Select
+                      label='Usuario'
+                      name='cliente_id'
+                      placeholder='Selecciona el usuario'
+                      value={form.cliente_id}
+                      className='lg:col-span-2'
+                      options={clientes}
+                      optionName='nombre'
+                      optionRender={(item) => `${item.nombre} (${item.email})`}
+                      onChange={onChangeSelect}
+                      required
+                    />
+                  )}
+                  {!form.cliente_id && (
+                    <Select
+                      label='Cliente'
+                      name='usuario_id'
+                      placeholder='Selecciona el cliente'
+                      value={form.usuario_id}
+                      className='lg:col-span-2'
+                      options={usuarios}
+                      optionName='nombre'
+                      onChange={onChangeSelect}
+                      required
+                    />
+                  )}
+                </>
               ) : (
                 <Select
                   label='Cliente'
                   name='usuario_id'
-                  placeholder='Selcciona el cliente'
+                  placeholder='Selecciona el cliente'
                   value={form.usuario_id}
                   className='lg:col-span-2'
                   options={usuarios}
@@ -165,7 +185,7 @@ const Formulario = () => {
                   </div>
                 </>
               )}
-              {(form.isSeguro && isAdmin) ? (
+              {form.isSeguro && isAdmin ? (
                 <Input
                   label='Valor del seguro anual'
                   name='valorSeguro'
@@ -254,17 +274,62 @@ const Formulario = () => {
                   onChange={handleChangeCheckbox}
                 />
               </div>
-              <div className='lg:col-span-2 flex justify-end'>
+              <div className='lg:col-span-2 flex justify-end gap-4'>
                 <button
                   disabled={form.anticipo === '' && form.valorActivo === ''}
-                  type='submit'
-                  className='btn btn-primary'
+                  onClick={guardarCrearOtro}
+                  type='button'
+                  className='btn btn-secondary'
                 >
-                  Guardar
+                  Guardar y crear otro
                 </button>
+                {formArray.length === 0 && (
+                  <button
+                    disabled={form.anticipo === '' && form.valorActivo === ''}
+                    type='submit'
+                    className='btn btn-primary'
+                  >
+                    Guardar
+                  </button>
+                )}
               </div>
             </div>
           </form>
+          {formArray.length > 0 && (
+            <>
+              <Table titulo='Cotizaciones'>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {formArray.map((item, index) => (
+                    <tr key={`cotizacion-tr-${index}`}>
+                      <td>{index + 1}</td>
+                      <td>{item.nombreActivo}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <div className='lg:col-span-2 flex justify-end gap-4 mt-4'>
+                <form action="/cotizaciones" method='POST'>
+                    <input type='hidden' name='_token' value={token} />
+                    {formArray.map((item, index) => {
+                        const entries = Object.entries(item)
+
+                        return  entries.map(inp => (
+                            <input key={`array[${index}][${inp[0]}]`} type="hidden" name={`array[${index}][${inp[0]}]`} value={inp[1]} />
+                        ))
+                    })}
+                    <button type='submit' className='btn btn-primary'>
+                        Guardar cotizaciones
+                    </button>
+                </form>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div className='w-full'>

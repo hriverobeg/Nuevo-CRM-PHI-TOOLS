@@ -38,7 +38,7 @@ class Cotizacion extends Model
         'valorResidual36' => 'double',
         'valorResidual48' => 'double',
         'valorResidual60' => 'double',
-        'board_id' => BoardEnum::class
+        'board_id' => BoardEnum::class,
     ];
 
     protected $fillable = [
@@ -73,6 +73,7 @@ class Cotizacion extends Model
         'is48',
         'is60',
         'isAlivioFiscal',
+        'grupo'
     ];
 
     public function board() {

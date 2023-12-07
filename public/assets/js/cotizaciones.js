@@ -11,6 +11,7 @@ const disabledBoard = (nivelId, isAdmin) => {
 
   return true;
 };
+
 document.addEventListener('alpine:init', () => {
   Alpine.data('cotizaciones', () => ({
     init() {
@@ -21,14 +22,33 @@ document.addEventListener('alpine:init', () => {
     row: null,
     buscar: '',
     isLoadingPdf: false,
+    isLoadingGrupoPdf: false,
     isDeleteModal: false,
-    async downloadPdf() {
-      this.isLoadingPdf = true;
-      await window.createPDF(this.row, {
-        nombre: this.row?.usuario?.nombre ?? this.row?.cliente?.nombre,
-        empresa: this.row?.usuario ? '' : this.row?.cliente?.empresa,
-      });
-      this.isLoadingPdf = false;
+    async downloadPdf(grupo = false) {
+
+
+      if (grupo) {
+        this.isLoadingGrupoPdf = true
+        const cotizaciones = this.boards
+            .find(f => f.id === this.row?.board_id)
+            .cotizaciones.filter(f => f.grupo === this.row?.grupo)
+
+        await window.createPDF(cotizaciones, {
+            nombre: this.row?.usuario?.nombre ?? this.row?.cliente?.nombre,
+            empresa: this.row?.usuario ? '' : this.row?.cliente?.empresa,
+        });
+        this.isLoadingGrupoPdf = false
+      } else {
+        this.isLoadingPdf = true;
+        await window.createPDF(this.row, {
+            nombre: this.row?.usuario?.nombre ?? this.row?.cliente?.nombre,
+            empresa: this.row?.usuario ? '' : this.row?.cliente?.empresa,
+          });
+          this.isLoadingPdf = false;
+      }
+
+
+
     },
     onView(cotizacion) {
       if (cotizacion) {
@@ -38,7 +58,7 @@ document.addEventListener('alpine:init', () => {
     },
     onDelete(row) {
       this.row = row;
-
+      this.rowArray = []
       this.isDeleteModal = true;
     },
     titulo(row) {
@@ -103,3 +123,4 @@ document.addEventListener('alpine:init', () => {
     },
   }));
 });
+

@@ -48,7 +48,7 @@ class CotizacionController extends Controller
         $auth = Auth::user();
 
         $usuarios = $auth->isAdmin
-            ? []
+            ? Usuario::select('id', 'nombre')->get()
             : Usuario::select('id', 'nombre')->where('admin_id', $auth->id)->get();
 
         $clientes = $auth->isAdmin
@@ -77,51 +77,34 @@ class CotizacionController extends Controller
             ])->firstOrFail();
         }
 
-        Cotizacion::create([
-            'usuario_id'                => $request->usuario_id ?? null,
-            'cliente_id'                => $request->cliente_id ?? null,
-            'admin_id'                  => $auth->id,
-            'board_id'                  => 1,
-            'nombreActivo'              => $request->nombreActivo,
-            'anio'                      => $request->anio,
-            'tituloCotizacion'          => $request->tituloCotizacion,
-            'valorActivo'               => $request->valorActivo,
-            'anticipo'                  => $request->anticipo,
-            'anticipoPorcentaje'        => $request->anticipoPorcentaje,
-            'comisionPorApertura'       => $request->comisionPorApertura ?? 0,
-            'comisionPorcentaje'        => $request->comisionPorcentaje ?? $auth->comisionPorcentaje,
-            'interes'                   => $request->interes ?? $auth->interes,
-            'valorSeguro'               => $request->valorSeguro ?? 0,
-            'tipoActivo'                => $request->tipoActivo,
-            'otro'                      => $request->otro,
-            'valorResidual24'           => $request->valorResidual24,
-            'valorResidual36'           => $request->valorResidual36,
-            'valorResidual48'           => $request->valorResidual48,
-            'valorResidual60'           => $request->valorResidual60,
-            'valorResidual24Cantidad'   => $request->valorResidual24Cantidad,
-            'valorResidual36Cantidad'   => $request->valorResidual36Cantidad,
-            'valorResidual48Cantidad'   => $request->valorResidual48Cantidad,
-            'valorResidual60Cantidad'   => $request->valorResidual60Cantidad,
-            'isTelematics'              => $request->isTelematics ?? false,
-            'isSeguro'                  => $request->isSeguro ?? false,
-            'is24'                      => $request->is24 ?? false,
-            'is36'                      => $request->is36 ?? false,
-            'is48'                      => $request->is48 ?? false,
-            'is60'                      => $request->is60 ?? false,
-            'isAlivioFiscal'            => $request->isAlivioFiscal ?? false,
-        ]);
+        if ($request->has('array')) {
 
-        $cotizacion = Cotizacion::with('cliente', 'usuario')->latest()->first();
+            $grupo = Cotizacion::orderByDesc('grupo')->first()->grupo ?? 0;
 
-        NotificacionService::creadoCotizacion($auth, $cotizacion);
+            foreach($request->array as $coti) {
+                $cotizacion = $this->createCotizacion((object)$coti, $auth, $grupo + 1);
+            }
 
-        try {
-            $email =  $cotizacion->usuario?->email ?? $cotizacion->cliente?->email;
-            Mail::to($email)->send(new CotizacionMail($cotizacion));
-        } catch (\Throwable $th) {
-            logger($th);
+            NotificacionService::creadoCotizacion($auth, $cotizacion);
+            try {
+                $email =  $cotizacion->usuario?->email ?? $cotizacion->cliente?->email;
+                Mail::to($email)->send(new CotizacionMail($cotizacion));
+            } catch (\Throwable $th) {
+                logger($th);
+            }
+
+        } else {
+
+            $cotizacion = $this->createCotizacion($request, $auth);
+            NotificacionService::creadoCotizacion($auth, $cotizacion);
+
+            try {
+                $email =  $cotizacion->usuario?->email ?? $cotizacion->cliente?->email;
+                Mail::to($email)->send(new CotizacionMail($cotizacion));
+            } catch (\Throwable $th) {
+                logger($th);
+            }
         }
-
 
         return $this->redirectIndex($this->page);
     }
@@ -162,5 +145,54 @@ class CotizacionController extends Controller
         NotificacionService::eliminadoCotizacion($auth, $cotizacion);
 
         return $this->redirectIndex($this->page);
+    }
+
+    private function createCotizacion($item, $auth, $grupo = null) {
+        Cotizacion::create([
+            'usuario_id'                => $item->usuario_id ?? null,
+            'cliente_id'                => $item->cliente_id ?? null,
+            'admin_id'                  => $auth->id,
+            'board_id'                  => 1,
+            'nombreActivo'              => $item->nombreActivo,
+            'anio'                      => $item->anio,
+            'tituloCotizacion'          => $item->tituloCotizacion,
+            'valorActivo'               => $item->valorActivo,
+            'anticipo'                  => $item->anticipo,
+            'anticipoPorcentaje'        => $item->anticipoPorcentaje,
+            'comisionPorApertura'       => $item->comisionPorApertura ?? 0,
+            'comisionPorcentaje'        => $item->comisionPorcentaje ?? $auth->comisionPorcentaje,
+            'interes'                   => $item->interes ?? $auth->interes,
+            'valorSeguro'               => $item->valorSeguro ?? 0,
+            'tipoActivo'                => $item->tipoActivo,
+            'otro'                      => $item->otro,
+            'valorResidual24'           => $item->valorResidual24,
+            'valorResidual36'           => $item->valorResidual36,
+            'valorResidual48'           => $item->valorResidual48,
+            'valorResidual60'           => $item->valorResidual60,
+            'valorResidual24Cantidad'   => $item->valorResidual24Cantidad,
+            'valorResidual36Cantidad'   => $item->valorResidual36Cantidad,
+            'valorResidual48Cantidad'   => $item->valorResidual48Cantidad,
+            'valorResidual60Cantidad'   => $item->valorResidual60Cantidad,
+            'isTelematics'              => $this->stringPuri($item->isTelematics) ?? false,
+            'isSeguro'                  => $this->stringPuri($item->isSeguro) ?? false,
+            'is24'                      => $this->stringPuri($item->is24) ?? false,
+            'is36'                      => $this->stringPuri($item->is36) ?? false,
+            'is48'                      => $this->stringPuri($item->is48) ?? false,
+            'is60'                      => $this->stringPuri($item->is60) ?? false,
+            'isAlivioFiscal'            => $this->stringPuri($item->isAlivioFiscal) ?? false,
+            'grupo'                     => $grupo ?? null,
+        ]);
+
+        $cotizacion = Cotizacion::with('cliente', 'usuario')->latest()->first();
+
+        return $cotizacion;
+    }
+
+    private function stringPuri ($val) {
+        if($val == "true" || $val == "false") {
+            return $val == "true" ? true : false;
+        }
+
+        return $val;
     }
 }

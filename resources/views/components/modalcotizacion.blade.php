@@ -33,7 +33,10 @@
                 x-text="titulo(row)" />
             </div>
             <div class="p-5">
-                <div x-sho="row?.tipoActivo === 'V-std' || row?.tipoActivo === 'B-std'" class="mb-4 text-center">
+                <template x-if="row?.grupo">
+                    <p class="font-medium text-primary">Esta cotización pertenece a un grupo</p>
+                </template>
+                <div x-show="row?.tipoActivo === 'V-std' || row?.tipoActivo === 'B-std'" class="mb-4 text-center">
                     <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'V-std'"  src="{{ asset('assets/images/sedan.png') }}" alt="Sedán">
                     <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'B-std'" src="{{ asset('assets/images/suv.png') }}" alt="SUV">
                 </div>
@@ -45,11 +48,11 @@
                         <div x-text="row?.cliente?.nombre"></div>
                     </x-cotizacion.item>
                 </div>
-                <div x-show="row?.usuario !== null">
+                <template x-show="row?.usuario !== null">
                     <x-cotizacion.item  titulo="Cliente">
                         <div x-text="row?.usuario?.nombre"></div>
                     </x-cotizacion.item>
-                </div>
+                </template>
                 <x-cotizacion.item titulo="Datos del activo">
                     <div x-text="row?.nombreActivo"></div>
                 </x-cotizacion.item>
@@ -94,6 +97,18 @@
                         PDF
                     </button>
                 </x-cotizacion.item>
+                <template x-if="row?.grupo">
+                    <x-cotizacion.item titulo="Descargar cotización">
+                        <button x-show="isLoadingGrupoPdf" type="button" class="btn btn-primary btn-sm"><span class="animate-spin border-2 border-white border-l-transparent rounded-full w-5 h-5 ltr:mr-4 rtl:ml-4 inline-block align-middle"></span></button>
+                        <button x-show="!isLoadingGrupoPdf" class="btn btn-primary btn-sm" @click="downloadPdf(true)">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
+                                <path opacity="0.5" d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            PDF en Grupo
+                        </button>
+                    </x-cotizacion.item>
+                </template>
             </div>
         </div>
     </div>

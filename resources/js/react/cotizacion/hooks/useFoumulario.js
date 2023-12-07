@@ -65,6 +65,7 @@ const ejemplo1 = {
 
 const useFoumulario = ({ row }) => {
   const [form, setForm] = useState(row ?? defaultValores);
+  const [formArray, setFormArray] = useState([])
   const [token, setToken] = useState('');
   const [clientes, setClientes] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
@@ -96,7 +97,7 @@ const useFoumulario = ({ row }) => {
   function onChangeSelect(option, item, id = 'id') {
     setForm({
         ...form,
-        [item.name]: option['id']
+        [item.name]: option === null ? null : option[id]
     })
   }
 
@@ -171,7 +172,6 @@ const useFoumulario = ({ row }) => {
   }
 
   function onChangeTipoActivo({ id: value }) {
-    console.log(value)
     const meses = [24, 36, 48, 60];
     const newData = {};
     const newMaxValor = {...maxValor}
@@ -208,6 +208,22 @@ const useFoumulario = ({ row }) => {
     });
   }
 
+  const guardarCrearOtro = () => {
+    const array = [...formArray, form]
+    setFormArray(array)
+
+    if (array.length > 0) {
+        const row = array[0]
+        setForm({
+            ...defaultValores,
+            cliente_id: row?.cliente_id ?? null,
+            usuario_id: row?.usuario_id ?? null
+        })
+    } else {
+        setForm(defaultValores)
+    }
+  }
+
   return {
     form,
     onChangeForm,
@@ -219,7 +235,9 @@ const useFoumulario = ({ row }) => {
     usuarios,
     isAdmin,
     maxValor,
-    onChangeSelect
+    onChangeSelect,
+    guardarCrearOtro,
+    formArray
   };
 };
 

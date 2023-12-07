@@ -28,6 +28,7 @@ const Select = ({
         required={required}
         onChange={onChange}
         options={options}
+        isClearable
         getOptionLabel={optionRender ?? optionLabel}
         getOptionValue={optionValue}
       />
