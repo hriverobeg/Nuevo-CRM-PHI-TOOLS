@@ -52,13 +52,13 @@ export function calcularResiduo(categoria, meses, multiplier = 1) {
 }
 export const getResiduo = (meses, form) => {
   if (meses === 24)
-    return parseFloat(Number(form.valorResidual24) / 100).toFixed(2);
+    return parseFloat(Number(form.valorResidual24) / 100).toFixed(3);
   if (meses === 36)
-    return parseFloat(Number(form.valorResidual36) / 100).toFixed(2);
+    return parseFloat(Number(form.valorResidual36) / 100).toFixed(3);
   if (meses === 48)
-    return parseFloat(Number(form.valorResidual48) / 100).toFixed(2);
+    return parseFloat(Number(form.valorResidual48) / 100).toFixed(3);
   if (meses === 60)
-    return parseFloat(Number(form.valorResidual60) / 100).toFixed(2);
+    return parseFloat(Number(form.valorResidual60) / 100).toFixed(3);
 
   return 0;
 };
