@@ -1,7 +1,7 @@
 export const footerPDF = (doc) => {
     const width = 16;
     const margin = (num) => num * 5;
-    const height = doc.internal.pageSize.height - 30;
+    const height = doc.internal.pageSize.height - 50;
 
     doc.setFontSize(6);
     doc.setFont(undefined, 'normal');

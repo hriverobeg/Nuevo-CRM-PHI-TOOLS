@@ -31,6 +31,7 @@ const defaultValores = {
   is48: true,
   is60: true,
   isAlivioFiscal: false,
+  isOpcionCompra: true
 };
 
 const ejemplo1 = {

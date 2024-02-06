@@ -69,7 +69,7 @@ document.addEventListener('alpine:init', () => {
       return String(num).padStart(totalLength, '0');
     },
     numeroComas(num) {
-      const numCalc = num ? Number(num).toFixed(0) : '';
+      const numCalc = num ? Number(num).toFixed(0) : '0';
       return '$' + numCalc.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
     },
     get filteredData() {

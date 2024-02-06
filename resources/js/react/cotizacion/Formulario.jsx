@@ -245,6 +245,12 @@ const Formulario = () => {
                 value={form.isAlivioFiscal}
                 onChange={handleChangeCheckbox}
               />
+              <Checkbox
+                label='Incluir tabla de opción a compra'
+                name='isOpcionCompra'
+                value={form.isOpcionCompra}
+                onChange={handleChangeCheckbox}
+              />
               <h5 className='text-lg lg:col-span-2 font-semibold dark:text-white-light'>
                 Meses a cotizar
               </h5>
@@ -314,18 +320,23 @@ const Formulario = () => {
                 </tbody>
               </Table>
               <div className='lg:col-span-2 flex justify-end gap-4 mt-4'>
-                <form action="/cotizaciones" method='POST'>
-                    <input type='hidden' name='_token' value={token} />
-                    {formArray.map((item, index) => {
-                        const entries = Object.entries(item)
+                <form action='/cotizaciones' method='POST'>
+                  <input type='hidden' name='_token' value={token} />
+                  {formArray.map((item, index) => {
+                    const entries = Object.entries(item);
 
-                        return  entries.map(inp => (
-                            <input key={`array[${index}][${inp[0]}]`} type="hidden" name={`array[${index}][${inp[0]}]`} value={inp[1]} />
-                        ))
-                    })}
-                    <button type='submit' className='btn btn-primary'>
-                        Guardar cotizaciones
-                    </button>
+                    return entries.map((inp) => (
+                      <input
+                        key={`array[${index}][${inp[0]}]`}
+                        type='hidden'
+                        name={`array[${index}][${inp[0]}]`}
+                        value={inp[1]}
+                      />
+                    ));
+                  })}
+                  <button type='submit' className='btn btn-primary'>
+                    Guardar cotizaciones
+                  </button>
                 </form>
               </div>
             </>
@@ -344,9 +355,12 @@ const Formulario = () => {
             <div className='panel mb-4'>
               <TablePagoMensual {...form} />
             </div>
-            <div className='panel'>
-              <TablePagoOc {...form} />
-            </div>
+            {form.isOpcionCompra && (
+              <div className='panel'>
+                <TablePagoOc {...form} />
+              </div>
+            )}
+
             {form.isAlivioFiscal && (
               <div className='panel mt-4'>
                 <TableAlivioFiscal {...form} />

@@ -20,7 +20,7 @@ export function pagoSeguro(interes, valorseguro) {
 }
 
 export function numeroComas(num) {
-  const numCalc = num ? Number(num).toFixed(0) : '';
+  const numCalc = num ? Number(num).toFixed(0) : '0';
   return '$' + numCalc.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 export function calcularResiduo(categoria, meses, multiplier = 1) {
