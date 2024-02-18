@@ -53,7 +53,27 @@
                         <div x-text="row?.usuario?.nombre"></div>
                     </x-cotizacion.item>
                 </template>
-                <x-cotizacion.item titulo="Datos del activo">
+                <template x-if="row?.tipoActivo === 'V-std'">
+                    <x-cotizacion.item titulo="Tipo de Activo">
+                        <div>Vehículo</div>
+                    </x-cotizacion.item>
+                </template>
+                <template x-if="row?.tipoActivo === 'B-std'">
+                    <x-cotizacion.item titulo="Tipo de Activo">
+                        <div>Vehículo blindado</div>
+                    </x-cotizacion.item>
+                </template>
+                <template x-if="row?.tipoActivo === 'C-std'">
+                    <x-cotizacion.item titulo="Tipo de Activo">
+                        <div>Equipo de computo</div>
+                    </x-cotizacion.item>
+                </template>
+                <template x-if="row?.tipoActivo === 'otro'">
+                    <x-cotizacion.item titulo="Tipo de Activo">
+                        <div>Otro</div>
+                    </x-cotizacion.item>
+                </template>
+                <x-cotizacion.item titulo="Nombre del activo">
                     <div x-text="row?.nombreActivo"></div>
                 </x-cotizacion.item>
                 <x-cotizacion.item titulo="Año">

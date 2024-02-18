@@ -422,7 +422,7 @@ async function createPDF(param, cliente) {
       });
     }
 
-    footerPDF(doc);
+    footerPDF(doc, item.isAlivioFiscal);
     if (x < pdfArray.length - 1) {
       doc.addPage();
     }

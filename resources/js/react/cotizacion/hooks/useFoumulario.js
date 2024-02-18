@@ -218,7 +218,12 @@ const useFoumulario = ({ row }) => {
         setForm({
             ...defaultValores,
             cliente_id: row?.cliente_id ?? null,
-            usuario_id: row?.usuario_id ?? null
+            usuario_id: row?.usuario_id ?? null,
+            tipoActivo: row?.tipoActivo ?? '',
+            valorResidual24: row?.valorResidual24 ?? 45,
+            valorResidual36: row?.valorResidual36 ?? 40,
+            valorResidual48: row?.valorResidual48 ?? 35,
+            valorResidual60: row?.valorResidual60 ?? 30,
         })
     } else {
         setForm(defaultValores)

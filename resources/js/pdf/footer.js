@@ -1,7 +1,8 @@
-export const footerPDF = (doc) => {
+export const footerPDF = (doc, isAlivioFiscal = false) => {
     const width = 16;
     const margin = (num) => num * 5;
-    const height = doc.internal.pageSize.height - 50;
+    const marginFooter = isAlivioFiscal ? 30 : 50
+    const height =  doc.internal.pageSize.height - marginFooter;
 
     doc.setFontSize(6);
     doc.setFont(undefined, 'normal');
