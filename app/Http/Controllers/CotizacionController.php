@@ -71,10 +71,7 @@ class CotizacionController extends Controller
         $auth = Auth::user();
 
         if ($request->has('usuario_id') && $request->usuario_id != null) {
-            Usuario::where([
-                ['id', $request->usuario_id],
-                ['admin_id', $auth->id]
-            ])->firstOrFail();
+            Usuario::findOrFail($request->usuario_id);
         }
 
         if ($request->has('array')) {
