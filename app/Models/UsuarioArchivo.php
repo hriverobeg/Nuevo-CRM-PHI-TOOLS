@@ -10,17 +10,17 @@ class UsuarioArchivo extends Model
 {
     use HasFactory;
 
-    protected $table = 'usuario_archivo';
+    protected $table = 'user_archivo';
 
     protected $fillable = [
         'nombre',
-        'usuario_id',
+        'user_id',
         'tipo_archivo_id'
     ];
 
-    public function scopeArchivos(Builder $builder, $usuarioId, $tipoArchivoId) {
+    public function scopeArchivos(Builder $builder, $userId, $tipoArchivoId) {
         return $builder->where([
-            ['usuario_id', $usuarioId],
+            ['user_id', $userId],
             ['tipo_archivo_id', $tipoArchivoId]
         ]);
     }

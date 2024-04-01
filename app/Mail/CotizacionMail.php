@@ -41,8 +41,8 @@ class CotizacionMail extends Mailable
         return new Content(
             view: 'mails.cotizacion',
             with: [
-                'nombre' => $this->cotizacion->usuario?->nombre ?? $this->cotizacion->cliente?->nombre,
-                'email' => $this->cotizacion->usuario?->email ?? $this->cotizacion->cliente?->email,
+                'nombre' => $this->cotizacion->to_user?->nombre,
+                'email' => $this->cotizacion->to_user?->email,
                 'id' => $this->cotizacion->id
             ]
         );

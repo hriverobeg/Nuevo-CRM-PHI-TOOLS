@@ -42,9 +42,8 @@ class Cotizacion extends Model
     ];
 
     protected $fillable = [
-        'usuario_id',
-        'cliente_id',
-        'admin_id',
+        'from_user_id',
+        'to_user_id',
         'board_id',
         'nombreActivo',
         'anio',
@@ -80,16 +79,12 @@ class Cotizacion extends Model
         return $this->hasOne(Board::class, 'id', 'board_id');
     }
 
-    public function usuario() {
-        return $this->hasOne(Usuario::class, 'id', 'usuario_id');
+    public function from_user() {
+        return $this->hasOne(User::class, 'id', 'from_user_id');
     }
 
-    public function cliente() {
-        return $this->hasOne(Admin::class, 'id', 'cliente_id');
-    }
-
-    public function admin() {
-        return $this->hasOne(Admin::class, 'id', 'admin_id');
+    public function to_user() {
+        return $this->hasOne(User::class, 'id', 'to_user_id');
     }
 
     public function getFechaAttribute()
@@ -100,6 +95,13 @@ class Cotizacion extends Model
     public function scopeClienteBoard(Builder $builder, $clienteId, $boardId) {
         return $builder->where([
             ['admin_id', $clienteId],
+            ['board_id', $boardId]
+        ]);
+    }
+
+    public function scopeUserBoard(Builder $builder, $userId, $boardId) {
+        return $builder->where([
+            ['user_id', $userId],
             ['board_id', $boardId]
         ]);
     }

@@ -6,7 +6,9 @@ use App\Http\Resources\BoardResource;
 use App\Mail\CotizacionMail;
 use App\Models\Admin;
 use App\Models\Board;
+use App\Models\Cliente;
 use App\Models\Cotizacion;
+use App\Models\User;
 use App\Models\Usuario;
 use App\Services\NotificacionService;
 use App\Traits\RedirectTrait;
@@ -48,16 +50,17 @@ class CotizacionController extends Controller
         $auth = Auth::user();
 
         $usuarios = $auth->isAdmin
-            ? Usuario::select('id', 'nombre')->get()
-            : Usuario::select('id', 'nombre')->where('admin_id', $auth->id)->get();
+            ? User::select('id', 'nombre', 'email')->get()
+            : User::select('id', 'nombre', 'email')->where('parent_user_id', $auth->id)->get();
 
         $clientes = $auth->isAdmin
-            ? Admin::cliente()->get()
+            ? Cliente::all()
             : [];
 
         $isAdmin = $auth->isAdmin;
         $interes = $auth->interes;
         $comisionPorcentaje = $auth->comisionPorcentaje;
+
 
         return view('pages.cotizaciones.form',
             compact(['usuarios', 'clientes', 'isAdmin', 'interes', 'comisionPorcentaje']));
@@ -84,7 +87,7 @@ class CotizacionController extends Controller
 
             NotificacionService::creadoCotizacion($auth, $cotizacion);
             try {
-                $email =  $cotizacion->usuario?->email ?? $cotizacion->cliente?->email;
+                $email =  $cotizacion->to_user?->email;
                 Mail::to($email)->send(new CotizacionMail($cotizacion));
             } catch (\Throwable $th) {
                 logger($th);
@@ -96,7 +99,7 @@ class CotizacionController extends Controller
             NotificacionService::creadoCotizacion($auth, $cotizacion);
 
             try {
-                $email =  $cotizacion->usuario?->email ?? $cotizacion->cliente?->email;
+                $email =  $cotizacion->to_user?->email;
                 Mail::to($email)->send(new CotizacionMail($cotizacion));
             } catch (\Throwable $th) {
                 logger($th);
@@ -146,9 +149,8 @@ class CotizacionController extends Controller
 
     private function createCotizacion($item, $auth, $grupo = null) {
         Cotizacion::create([
-            'usuario_id'                => $item->usuario_id ?? null,
-            'cliente_id'                => $item->cliente_id ?? null,
-            'admin_id'                  => $auth->id,
+            'to_user_id'                   => $item->usuario_id ?? $item->cliente_id ?? null,
+            'from_user_id'                  => $auth->id,
             'board_id'                  => 1,
             'nombreActivo'              => $item->nombreActivo,
             'anio'                      => $item->anio,
@@ -180,7 +182,7 @@ class CotizacionController extends Controller
             'grupo'                     => $grupo ?? null,
         ]);
 
-        $cotizacion = Cotizacion::with('cliente', 'usuario')->latest()->first();
+        $cotizacion = Cotizacion::with('from_user', 'to_user')->latest()->first();
 
         return $cotizacion;
     }

@@ -3,24 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Usuario extends Model
+class Usuario extends User
 {
-    use HasFactory, SoftDeletes;
+    protected $nivel_id = 2;
 
-    protected $table = 'usuario';
-
-    protected $fillable = [
-        'nombre',
-        'telefono',
-        'email',
-        'admin_id',
-        'empresa',
-        'direccion_empresa',
-        'giro_empresa',
-        'website_empresa'
-    ];
+    protected static function booted()
+    {
+        static::addGlobalScope('nivel_id', function (Builder $builder) {
+            $builder->where('nivel_id', 2);
+        });
+    }
 }

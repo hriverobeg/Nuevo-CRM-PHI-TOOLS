@@ -18,7 +18,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $list = Admin::admin()->get();
+        $list = Admin::all();
 
         return view('pages.admin.wrapper', compact('list'));
     }

@@ -20,10 +20,10 @@ class Board extends Model
         return $this->hasMany(Cotizacion::class);
     }
 
-    public function scopeClientes($builder, $adminId) {
+    public function scopeClientes($builder, $userId) {
         return $builder
-           ->with(['cotizaciones' => function ($builder) use ($adminId) {
-                $builder->where('admin_id', $adminId);
+           ->with(['cotizaciones' => function ($builder) use ($userId) {
+                $builder->where('from_user_id', $userId);
            }]);
     }
 }

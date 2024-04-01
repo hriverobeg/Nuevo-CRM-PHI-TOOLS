@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class Admin extends User
+class Cliente extends User
 {
-    protected $nivel_id = 1;
+    protected $nivel_id = 3;
 
     protected static function booted()
     {
         static::addGlobalScope('nivel_id', function (Builder $builder) {
-            $builder->where('nivel_id', 1);
+            $builder->where('nivel_id', 3);
         });
     }
 }

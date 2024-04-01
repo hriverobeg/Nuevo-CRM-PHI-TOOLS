@@ -8,5 +8,5 @@
 </div>
 <div>
   <label for="password">Password</label>
-  <input id="password" name="password" type="password" required class="form-input mt-1" placeholder="Contraseña" />
+  <input id="password" name="password" type="password" class="form-input mt-1" placeholder="Contraseña" />
 </div>

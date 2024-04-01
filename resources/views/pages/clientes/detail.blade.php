@@ -94,7 +94,7 @@
         <div>
             <form method="POST" action="/usuario_archivo" enctype="multipart/form-data" class="mb-5 rounded-md border border-[#ebedf2] bg-white p-4 dark:border-[#191e3a] dark:bg-[#0e1726]">
                 @csrf
-                <input type="hidden" name="usuario_id" value="{{ $usuario->id }}">
+                <input type="hidden" name="user_id" value="{{ $usuario->id }}">
                 <h6 class="mb-5 text-lg font-bold">Expediente de crédito</h6>
                 <div class="flex flex-col sm:flex-row">
                     <div class="grid flex-1 grid-cols-1 gap-5 sm:grid-cols-2">

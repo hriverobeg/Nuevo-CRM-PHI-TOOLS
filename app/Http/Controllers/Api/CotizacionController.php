@@ -57,19 +57,19 @@ class CotizacionController extends Controller
         $auth = Auth::user();
         NotificacionService::moverCotizacion($auth, $cotizacion);
         if ($cotizacion->board_id == BoardEnum::ACEPTADAS) {
-            NotificacionService::usuarioPropuestaAceptada($cotizacion->cliente ?? $cotizacion->admin);
+            NotificacionService::usuarioPropuestaAceptada($cotizacion->to_user);
         }
 
         if ($cotizacion->board_id == BoardEnum::AUTORIZADAS) {
-            NotificacionService::usuarioPropuestaAutorizada($cotizacion->admin, $auth, $cotizacion);
+            NotificacionService::usuarioPropuestaAutorizada($cotizacion->to_user, $auth, $cotizacion);
         }
 
         if ($cotizacion->board_id == BoardEnum::EJECUTADAS) {
-            NotificacionService::usuarioPropuestaEjecutada($cotizacion->admin, $auth, $cotizacion);
+            NotificacionService::usuarioPropuestaEjecutada($cotizacion->to_user, $auth, $cotizacion);
         }
 
         if ($cotizacion->board_id == BoardEnum::RECHAZADAS) {
-            NotificacionService::usuarioPropuestaRechazada($cotizacion->admin, $auth, $cotizacion);
+            NotificacionService::usuarioPropuestaRechazada($cotizacion->to_user, $auth, $cotizacion);
         }
 
         return Response::json($cotizacion);

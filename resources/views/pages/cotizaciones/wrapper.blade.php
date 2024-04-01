@@ -92,8 +92,9 @@
                                     class="mb-5 cursor-move space-y-3 rounded-md bg-[#f4f4f4] p-3 pb-5 shadow dark:bg-[#262e40]">
                                     <div class="text-base font-medium" x-text="titulo(cotizacion)"></div>
                                     <p class="break-all" x-text="cotizacion.nombreActivo"></p>
-                                    <div x-show="cotizacion?.admin !== null">
-                                        <p class="break-all" x-text="cotizacion?.admin?.nombre"></p>
+                                    <p class="text-red-500"></p>
+                                    <div x-show="cotizacion?.from_user !== null">
+                                        <p class="break-all" x-text="cotizacion?.from_user?.nombre"></p>
                                     </div>
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center font-medium hover:text-primary">
@@ -141,6 +142,6 @@
         var isAdmin = {{ json_encode($isAdmin) }}
     </script>
     <script src="/assets/js/Sortable.min.js"></script>
-    <script src="/assets/js/cotizaciones.js?v=1.0.5"></script>
+    <script src="/assets/js/cotizaciones.js?v=1.0.6"></script>
     @vite('resources/js/pdf/main.js')
 @endsection

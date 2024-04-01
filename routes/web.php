@@ -24,15 +24,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/mail/cotizacion', function () {
-//     //return view('mails.cotizacion');
-
-//     $cotizacion = Cotizacion::with('cliente', 'usuario')->latest()->first();
-
-//     $email =  $cotizacion->usuario?->email ?? $cotizacion->cliente?->email;
-//     Mail::to($email)->send(new CotizacionMail($cotizacion));
-// });
-
 Route::get('/route-cache', function() {
     \Artisan::call('route:cache');
     return 'Routes cache cleared';
@@ -69,8 +60,8 @@ Route::middleware('auth')->group(function() {
   Route::get('/dashboard-cliente', [DashboardController::class, 'cliente']);
   Route::resource('/notificaciones', NotificacionController::class)->only('index', 'destroy');
   Route::resource('/usuario_archivo', UsuarioArchivoController::class)->only('store', 'destroy');
-  Route::resource('/usuarios', ClienteController::class)->names('clientes')->middleware(VerifyIsAdmin::class);
-  Route::resource('/clientes', UsuarioController::class)->names('usuarios');
+  Route::resource('/usuarios', UsuarioController::class)->names('usuarios');
+  Route::resource('/clientes', ClienteController::class)->names('clientes')->middleware(VerifyIsAdmin::class);
   Route::resource('/cotizaciones', CotizacionController::class);
   Route::prefix('api')->group(function() {
     Route::apiResource('cotizacion', ApiCotizacionController::class)->names('apicotizaciones')->only('update');

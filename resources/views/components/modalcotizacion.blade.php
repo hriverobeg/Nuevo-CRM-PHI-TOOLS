@@ -41,18 +41,11 @@
                     <img class="h-[95px] m-auto" x-show="row?.tipoActivo === 'B-std'" src="{{ asset('assets/images/suv.png') }}" alt="SUV">
                 </div>
                 <x-cotizacion.item titulo="Usuario">
-                    <div x-text="row?.admin?.nombre"></div>
+                    <div x-text="row?.from_user?.nombre"></div>
                 </x-cotizacion.item>
-                <div x-show="row?.cliente !== null">
-                    <x-cotizacion.item x-show="row?.cliente !== null" titulo="Cliente">
-                        <div x-text="row?.cliente?.nombre"></div>
-                    </x-cotizacion.item>
-                </div>
-                <template x-show="row?.usuario !== null">
-                    <x-cotizacion.item  titulo="Cliente">
-                        <div x-text="row?.usuario?.nombre"></div>
-                    </x-cotizacion.item>
-                </template>
+                <x-cotizacion.item  titulo="Cliente">
+                    <div x-text="row?.to_user?.nombre"></div>
+                </x-cotizacion.item>
                 <template x-if="row?.tipoActivo === 'V-std'">
                     <x-cotizacion.item titulo="Tipo de Activo">
                         <div>Vehículo</div>

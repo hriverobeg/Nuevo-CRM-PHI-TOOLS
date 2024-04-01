@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
+use App\Models\User;
 use App\Models\UsuarioArchivo;
 use App\Traits\FileTrait;
 use Illuminate\Http\Request;
@@ -34,16 +34,15 @@ class UsuarioArchivoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'usuario_id' => 'required|exists:App\Models\Usuario,id'
+            'user_id' => 'required|exists:App\Models\User,id'
         ]);
 
-        $usuario = Usuario::findOrFail($request->usuario_id);
+        $usuario = User::findOrFail($request->user_id);
 
         if ($request->hasFile('identificacion_representante_legal')) {
             $nameFile = $this->saveFile($request->file('identificacion_representante_legal'));
-
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 1
             ]);
@@ -53,7 +52,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('comprobante_docimicilio_representante'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 2
             ]);
@@ -63,7 +62,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('comprobante_docimicilio_empresa'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 3
             ]);
@@ -73,7 +72,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('curriculum_empresa'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 4
             ]);
@@ -83,7 +82,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('formato_buro_legal'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 5
             ]);
@@ -93,7 +92,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('formato_buro_empresa'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 6
             ]);
@@ -103,7 +102,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('declaracion_isr'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 7
             ]);
@@ -113,7 +112,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('acuse_isr_reciente'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 8
             ]);
@@ -123,7 +122,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('declaracion_isr_last_year'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 9
             ]);
@@ -133,7 +132,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('acuse_recibo_isr_last_year'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 10
             ]);
@@ -143,7 +142,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('declaracion_isr_penultimo_year'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 11
             ]);
@@ -153,7 +152,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('acuse_isr_penultimo_year'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 12
             ]);
@@ -163,7 +162,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('acuse_isr_penultimo_year'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 13
             ]);
@@ -173,7 +172,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('estados_financieros_last_year'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 14
             ]);
@@ -183,7 +182,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('estados_financieros_penultimo_year'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 15
             ]);
@@ -193,7 +192,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('estados_bancarios_3_meses'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 16
             ]);
@@ -203,7 +202,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('constancia_fiscal'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 17
             ]);
@@ -213,7 +212,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('acta_constitutiva'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 18
             ]);
@@ -223,7 +222,7 @@ class UsuarioArchivoController extends Controller
             $nameFile = $this->saveFile($request->file('opinion_cumplimiento'));
 
             UsuarioArchivo::create([
-                'usuario_id' => $usuario->id,
+                'user_id' => $usuario->id,
                 'nombre' => $nameFile,
                 'tipo_archivo_id' => 19
             ]);
@@ -267,6 +266,6 @@ class UsuarioArchivoController extends Controller
 
         $this->deleteFile($row->nombre);
 
-        return  Redirect::to("/clientes/{$row->usuario_id}?tab=expediente")->with('success', 'Se ha eliminado con éxito');
+        return  Redirect::to("/clientes/{$row->user_id}?tab=expediente")->with('success', 'Se ha eliminado con éxito');
     }
 }

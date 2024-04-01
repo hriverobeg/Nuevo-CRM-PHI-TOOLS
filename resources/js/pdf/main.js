@@ -80,16 +80,16 @@ async function createPDF(param, cliente) {
     let alto = 31
 
     if (item.tipoActivo === 'V-std') {
-      image = 'https://iili.io/HLXjZ8J.png';
+      image = 'https://iili.io/JwkDjAx.jpg';
       ext = 'png';
-      ancho = 55
+      ancho = pdfWidthHalf - 20
       alto = 31
     }
 
     if (item.tipoActivo === 'B-std') {
-      image = 'https://iili.io/HLXjPG1.png';
+      image = 'https://iili.io/JwkDjAx.jpg';
       ext = 'png';
-      ancho = 55
+      ancho = pdfWidthHalf - 20
       alto = 31
     }
 

@@ -42,11 +42,25 @@ const Formulario = () => {
             <div className='grid grid-cols-1 gap-5 lg:grid-cols-2'>
               {isAdmin ? (
                 <>
-                  {!form.usuario_id && (
+                  {!form.cliente_id && (
                     <Select
                       label='Usuario'
-                      name='cliente_id'
+                      name='usuario_id'
                       placeholder='Selecciona el usuario'
+                      value={form.usuario_id}
+                      className='lg:col-span-2'
+                      options={usuarios}
+                      optionRender={(item) => `${item.nombre} (${item.email})`}
+                      optionName='nombre'
+                      onChange={onChangeSelect}
+                      required
+                    />
+                  )}
+                  {!form.usuario_id && (
+                    <Select
+                      label='Cliente'
+                      name='cliente_id'
+                      placeholder='Selecciona el cliente'
                       value={form.cliente_id}
                       className='lg:col-span-2'
                       options={clientes}
@@ -56,28 +70,15 @@ const Formulario = () => {
                       required
                     />
                   )}
-                  {!form.cliente_id && (
-                    <Select
-                      label='Cliente'
-                      name='usuario_id'
-                      placeholder='Selecciona el cliente'
-                      value={form.usuario_id}
-                      className='lg:col-span-2'
-                      options={usuarios}
-                      optionName='nombre'
-                      onChange={onChangeSelect}
-                      required
-                    />
-                  )}
                 </>
               ) : (
                 <Select
                   label='Cliente'
-                  name='usuario_id'
+                  name='cliente_id'
                   placeholder='Selecciona el cliente'
-                  value={form.usuario_id}
+                  value={form.cliente_id}
                   className='lg:col-span-2'
-                  options={usuarios}
+                  options={clientes}
                   optionName='nombre'
                   onChange={onChangeSelect}
                   required

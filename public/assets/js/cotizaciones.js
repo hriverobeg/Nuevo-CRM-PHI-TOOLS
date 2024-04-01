@@ -34,15 +34,15 @@ document.addEventListener('alpine:init', () => {
             .cotizaciones.filter(f => f.grupo === this.row?.grupo)
 
         await window.createPDF(cotizaciones, {
-            nombre: this.row?.usuario?.nombre ?? this.row?.cliente?.nombre,
-            empresa: this.row?.usuario ? '' : this.row?.cliente?.empresa,
+            nombre: this.row?.to_user?.nombre,
+            empresa: this.row?.to_user?.empresa ?? '',
         });
         this.isLoadingGrupoPdf = false
       } else {
         this.isLoadingPdf = true;
         await window.createPDF(this.row, {
-            nombre: this.row?.usuario?.nombre ?? this.row?.cliente?.nombre,
-            empresa: this.row?.usuario ? '' : this.row?.cliente?.empresa,
+            nombre: this.row?.to_user?.nombre,
+            empresa: this.row?.to_user?.empresa ?? '',
           });
           this.isLoadingPdf = false;
       }
@@ -63,9 +63,8 @@ document.addEventListener('alpine:init', () => {
       this.isDeleteModal = true;
     },
     titulo(row) {
-        console.log({ row: row?.tipoActivo })
-      const cliente = row?.cliente?.nombre ?? row?.admin?.nombre;
-      return `AP-${this.padWithLeadingZeros(row?.id, 5)}-${cliente}`;
+        const usuario = row?.from_user?.nombre;
+        return `AP-${this.padWithLeadingZeros(row?.id, 5)}-${usuario}`;
     },
     padWithLeadingZeros(num, totalLength) {
       return String(num).padStart(totalLength, '0');

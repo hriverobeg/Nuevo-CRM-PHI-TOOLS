@@ -18,28 +18,17 @@ class CotizacionDescargarController extends Controller
             'id' => 'required|exists:cotizacion,id'
         ]);
 
-        $cotizacionCliente = Cotizacion::
-            with('cliente')
-            ->whereHas('cliente', function (Builder $builder) use ($request) {
+        $cotizacion = Cotizacion::
+            with('to_user', 'to_user')
+            ->whereHas('to_user', function (Builder $builder) use ($request) {
                 $builder->where('email', $request->email);
             })
             ->where('id', $request->id)
-            ->first();
+            ->firstOrFail();
 
-        $cotizacionUsuario = Cotizacion::
-            with('usuario')
-            ->whereHas('usuario', function (Builder $builder) use ($request) {
-                $builder->where('email', $request->email);
-            })
-            ->where('id', $request->id)
-            ->first();
-
-        if (empty($cotizacionCliente) && empty($cotizacionUsuario)) {
-            abort(404);
-        }
 
         return view('pages.cotizacion', [
-            'cotizacion' => $cotizacionCliente ?? $cotizacionUsuario
+            'cotizacion' => $cotizacion
         ]);
     }
 }

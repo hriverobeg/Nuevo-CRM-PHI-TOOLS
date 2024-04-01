@@ -17,9 +17,8 @@ class CotizacionResource extends JsonResource
         $array = parent::toArray($request);
 
         $extra = [
-            'usuario' => new UsuarioResource($this->usuario),
-            'cliente' => new ClienteResource($this->cliente),
-            'admin' => new ClienteResource($this->admin)
+            'from_user' => new ClienteResource($this->from_user),
+            'to_user' => new ClienteResource($this->to_user)
         ];
 
         return  array_merge($array, $extra);
