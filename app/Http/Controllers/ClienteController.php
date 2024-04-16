@@ -52,7 +52,8 @@ class ClienteController extends Controller
             'nombre' => $request->nombre,
             'email' => $request->email,
             'telefono' => $request->telefono,
-            'parent_user_id' => $auth->id
+            'parent_user_id' => $auth->id,
+            'nivel_id' => 3
         ]);
 
         return $this->redirectIndex($this->page);
