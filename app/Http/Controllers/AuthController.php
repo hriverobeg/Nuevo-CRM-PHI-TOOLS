@@ -13,7 +13,7 @@ class AuthController extends Controller
 
     public function loginPOST(Request $request) {
         $this->validate($request, [
-            'email' => 'required|exists:admin,email',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
 
