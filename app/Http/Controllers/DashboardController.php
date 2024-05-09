@@ -45,7 +45,7 @@ class DashboardController extends Controller
 
         $auth = Auth::user();
 
-        $usuariosCount = Usuario::where('admin_id', $auth->id)->count();
+        $usuariosCount = Usuario::where('parent_user_id', $auth->id)->count();
         $enviadas = Cotizacion::clienteBoard($auth->id, BoardEnum::ENVIADAS)->count();
         $aceptadas = Cotizacion::clienteBoard($auth->id, BoardEnum::ACEPTADAS)->count();
         $autorizadas = Cotizacion::clienteBoard($auth->id, BoardEnum::AUTORIZADAS)->count();
