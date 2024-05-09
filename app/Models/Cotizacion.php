@@ -94,7 +94,7 @@ class Cotizacion extends Model
 
     public function scopeClienteBoard(Builder $builder, $clienteId, $boardId) {
         return $builder->where([
-            ['admin_id', $clienteId],
+            ['user_id', $clienteId],
             ['board_id', $boardId]
         ]);
     }
