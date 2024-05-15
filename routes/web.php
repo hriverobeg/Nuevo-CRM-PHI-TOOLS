@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\UsuarioArchivoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\VendedorExternoController;
 use App\Http\Middleware\VerifyIsAdmin;
 use Illuminate\Support\Facades\Route;
 
@@ -56,12 +57,13 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function() {
   Route::resource('/admin', AdminController::class)->middleware(VerifyIsAdmin::class);
-  Route::get('/dashboard-admin', [DashboardController::class, 'admin'])->middleware(VerifyIsAdmin::class);
+  Route::get('/dashboard-admin', [DashboardController::class, 'admin']);
   Route::get('/dashboard-cliente', [DashboardController::class, 'cliente']);
   Route::resource('/notificaciones', NotificacionController::class)->only('index', 'destroy');
   Route::resource('/usuario_archivo', UsuarioArchivoController::class)->only('store', 'destroy');
-  Route::resource('/usuarios', UsuarioController::class)->names('usuarios');
-  Route::resource('/clientes', ClienteController::class)->names('clientes')->middleware(VerifyIsAdmin::class);
+  Route::resource('/vendedor-interno', UsuarioController::class)->names('vendedor-interno');
+  Route::resource('/vendedor-externo', VendedorExternoController::class)->names('vendedor-externo');
+  Route::resource('/clientes', ClienteController::class)->names('clientes');
   Route::resource('/cotizaciones', CotizacionController::class);
   Route::prefix('api')->group(function() {
     Route::apiResource('cotizacion', ApiCotizacionController::class)->names('apicotizaciones')->only('update');

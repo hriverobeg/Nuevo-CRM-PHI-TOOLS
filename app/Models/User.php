@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasPermissions;
 
     protected $guarded = ['id'];
 
@@ -49,5 +49,9 @@ class User extends Authenticatable
 
     public function scopeCliente(Builder $query) {
         return $query->where('nivel_id', 2);
+    }
+
+    public function nivel(){
+        return $this->hasOne(Nivel::class, 'id', 'nivel_id');
     }
 }

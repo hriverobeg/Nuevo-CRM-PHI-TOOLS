@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
+use App\Models\VendedorExterno;
 use App\Traits\RedirectTrait;
 use Hash;
 use Illuminate\Http\Request;
 
-class UsuarioController extends Controller
+class VendedorExternoController extends Controller
 {
     use RedirectTrait;
 
-    protected $page = 'vendedor-interno';
+    protected $page = 'vendedor-externo';
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $list = Usuario::all();
+        $list = VendedorExterno::all();
 
-        return view('pages.usuarios.wrapper', compact('list'));
+        return view('pages.externos.wrapper', compact('list'));
     }
 
     /**
@@ -48,13 +48,13 @@ class UsuarioController extends Controller
             ]
         );
 
-        Usuario::create([
+        VendedorExterno::create([
             'nombre' => $request->nombre,
             'password' => Hash::make($request->password),
             'email' => $request->email,
             'telefono' => $request->telefono,
             'empresa' => $request->empresa,
-            'nivel_id' => 2,
+            'nivel_id' => 4,
             'interes' => $request->interes,
             'comisionPorcentaje' => $request->comisionPorcentaje
         ]);
@@ -67,13 +67,13 @@ class UsuarioController extends Controller
      */
     public function show(string $id)
     {
-
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Usuario $usuario)
+    public function edit(string $id)
     {
         //
     }
@@ -81,9 +81,9 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, string $id)
     {
-        $cliente = Usuario::findOrFail($id);
+        $cliente = VendedorExterno::findOrFail($id);
 
         if($request->has('nombre')){
             $cliente->nombre = $request->nombre;
@@ -110,21 +110,20 @@ class UsuarioController extends Controller
         }
 
         if (!$cliente->isDirty()) {
-            return $this->redirectDirty($cliente, 'clientes');
+            return $this->redirectDirty($cliente, 'vendedor-externo');
         }
 
         $cliente->save();
 
         return $this->redirectIndex($this->page);
-
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(VendedorExterno $vendedorExterno)
     {
-        $usuario->delete();
+        $vendedorExterno->delete();
 
         return $this->redirectIndex($this->page);
     }

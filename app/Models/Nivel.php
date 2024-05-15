@@ -14,4 +14,8 @@ class Nivel extends Model
     protected $fillable = [
         'nombre'
     ];
+
+    public function permisos() {
+        return $this->belongsToMany(Permiso::class, 'nivel_permiso', 'nivel_id', 'permiso_id');
+    }
 }

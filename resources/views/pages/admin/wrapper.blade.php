@@ -1,7 +1,9 @@
 @extends('layouts.main')
 @section('content')
 <x-table titulo="Administradores">
-  @include('pages.admin.form')
+    @permiso('crear-cuenta-admin')
+    @include('pages.admin.form')
+    @endpermiso
 </x-table>
 @endsection
 @section('scripts')

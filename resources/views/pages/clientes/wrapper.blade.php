@@ -1,7 +1,9 @@
 @extends('layouts.main')
 @section('content')
 <x-table titulo="Clientes">
-  @include('pages.clientes.form')
+    @permiso('crear-cuenta-cliente')
+    @include('pages.clientes.form')
+    @endpermiso
 </x-table>
 @endsection
 @section('scripts')
