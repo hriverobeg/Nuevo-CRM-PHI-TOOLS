@@ -21,11 +21,11 @@ const Formulario = () => {
     onChangeFormNumber,
     handleChangeCheckbox,
     clientes,
-    isAdmin,
     usuarios,
     maxValor,
     guardarCrearOtro,
     formArray,
+    nivel
   } = useFoumulario({
     row: null,
   });
@@ -40,7 +40,7 @@ const Formulario = () => {
             <input type='hidden' name='isTelematics' value={form.isTelematics ? 1 : 0} />
             <input type='hidden' name='tituloCotizacion' value={form.tituloCotizacion} />
             <div className='grid grid-cols-1 gap-5 lg:grid-cols-2'>
-              {isAdmin ? (
+              {(nivel === 1 || nivel === 4) ? (
                 <>
                   {!form.cliente_id && (
                     <Select
@@ -143,7 +143,7 @@ const Formulario = () => {
                   max={50}
                 />
               </div>
-              {isAdmin && (
+              {(nivel === 1 || nivel === 4) && (
                 <>
                   <div>
                     <Input
@@ -186,7 +186,7 @@ const Formulario = () => {
                   </div>
                 </>
               )}
-              {form.isSeguro && isAdmin ? (
+              {form.isSeguro && (nivel === 1 || nivel === 4) ? (
                 <Input
                   label='Valor del seguro anual'
                   name='valorSeguro'
@@ -232,7 +232,7 @@ const Formulario = () => {
                 step={0.5}
                 max={maxValor[60]}
               />
-              {isAdmin && (
+              {(nivel === 1 || nivel === 4) && (
                 <Checkbox
                   label='¿Tiene Seguro?'
                   name='isSeguro'

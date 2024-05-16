@@ -34,36 +34,6 @@ const defaultValores = {
   isOpcionCompra: true
 };
 
-const ejemplo1 = {
-  tituloCotizacion: '4000',
-  nombreActivo: 'Item 1',
-  anio: 2023,
-  valorActivo: 1000000,
-  anticipo: 190000,
-  anticipoPorcentaje: 19,
-  comisionPorApertura: 25000,
-  comisionPorcentaje: 2.5,
-  interes: 27,
-  valorSeguro: 4000,
-  tipoActivo: 'B-std',
-  otro: '',
-  valorResidual24: 45,
-  valorResidual36: 40,
-  valorResidual48: 35,
-  valorResidual60: 30,
-  valorResidual24Cantidad: 0,
-  valorResidual36Cantidad: 0,
-  valorResidual48Cantidad: 0,
-  valorResidual60Cantidad: 0,
-  isTelematics: true,
-  isSeguro: true,
-  is24: true,
-  is36: false,
-  is48: false,
-  is60: true,
-  isAlivioFiscal: true,
-};
-
 const useFoumulario = ({ row }) => {
   const [form, setForm] = useState(row ?? defaultValores);
   const [formArray, setFormArray] = useState([])
@@ -73,21 +43,21 @@ const useFoumulario = ({ row }) => {
   const [maxValor, setMaxValor] = useState({
     24: 50, 36: 50, 48: 50, 60: 50
   })
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [nivel, setNivel] = useState(0);
 
   useEffect(() => {
     setToken(document.querySelector('meta[name="csrf-token"]').content);
     const {
       clientes: clients,
       usuarios: users,
-      isAdmin: admin,
       interes: interesCliente,
-      comisionPorcentaje: comisionPorcentajeCliente
+      comisionPorcentaje: comisionPorcentajeCliente,
+        nivelId
     } = window.Laravel;
-    setIsAdmin(admin);
     setClientes(clients);
     setUsuarios(users);
-    if (!isAdmin) {
+    setNivel(nivelId);
+    if (nivelId === 1 || nivelId === 4) {
         onChangeFormNumber({ target: { name: 'interes', value: interesCliente } })
         onChangeFormNumber({ target: { name: 'comisionPorcentaje', value: comisionPorcentajeCliente } })
         handleChangeCheckbox('isSeguro', false)
@@ -239,11 +209,11 @@ const useFoumulario = ({ row }) => {
     token,
     clientes,
     usuarios,
-    isAdmin,
     maxValor,
     onChangeSelect,
     guardarCrearOtro,
-    formArray
+    formArray,
+    nivel
   };
 };
 

@@ -10,7 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\UsuarioArchivoController;
 use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\VendedorExternoController;
+use App\Http\Controllers\VendedorInternoController;
 use App\Http\Middleware\VerifyIsAdmin;
 use Illuminate\Support\Facades\Route;
 
@@ -61,8 +61,8 @@ Route::middleware('auth')->group(function() {
   Route::get('/dashboard-cliente', [DashboardController::class, 'cliente']);
   Route::resource('/notificaciones', NotificacionController::class)->only('index', 'destroy');
   Route::resource('/usuario_archivo', UsuarioArchivoController::class)->only('store', 'destroy');
-  Route::resource('/vendedor-interno', UsuarioController::class)->names('vendedor-interno');
-  Route::resource('/vendedor-externo', VendedorExternoController::class)->names('vendedor-externo');
+  Route::resource('/vendedor-externo', UsuarioController::class)->names('vendedor-externo');
+  Route::resource('/vendedor-interno', VendedorInternoController::class)->names('vendedor-interno');
   Route::resource('/clientes', ClienteController::class)->names('clientes');
   Route::resource('/cotizaciones', CotizacionController::class);
   Route::prefix('api')->group(function() {

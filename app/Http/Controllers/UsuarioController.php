@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Usuario;
 use App\Traits\RedirectTrait;
 use Hash;
@@ -11,7 +12,7 @@ class UsuarioController extends Controller
 {
     use RedirectTrait;
 
-    protected $page = 'vendedor-interno';
+    protected $page = 'vendedor-externo';
     /**
      * Display a listing of the resource.
      */
@@ -122,8 +123,9 @@ class UsuarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(string $id)
     {
+        $usuario = Usuario::findOrFail($id);
         $usuario->delete();
 
         return $this->redirectIndex($this->page);

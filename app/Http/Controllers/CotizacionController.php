@@ -60,10 +60,11 @@ class CotizacionController extends Controller
         $isAdmin = $auth->isAdmin;
         $interes = $auth->interes;
         $comisionPorcentaje = $auth->comisionPorcentaje;
+        $nivelId = $auth->nivel_id;
 
 
         return view('pages.cotizaciones.form',
-            compact(['usuarios', 'clientes', 'isAdmin', 'interes', 'comisionPorcentaje']));
+            compact(['usuarios', 'clientes', 'isAdmin', 'interes', 'comisionPorcentaje', 'nivelId']));
     }
 
     /**

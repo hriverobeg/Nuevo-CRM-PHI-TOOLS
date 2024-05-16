@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 
-
-class VendedorExterno extends User
+class VendedorInterno extends User
 {
     protected $nivel_id = 4;
 

@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\VendedorExterno;
+use App\Models\VendedorInterno;
 use App\Traits\RedirectTrait;
 use Hash;
 use Illuminate\Http\Request;
 
-class VendedorExternoController extends Controller
+class VendedorInternoController extends Controller
 {
     use RedirectTrait;
 
-    protected $page = 'vendedor-externo';
+    protected $page = 'vendedor-interno';
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $list = VendedorExterno::all();
+        $list = VendedorInterno::all();
 
-        return view('pages.externos.wrapper', compact('list'));
+        return view('pages.internos.wrapper', compact('list'));
     }
 
     /**
@@ -48,7 +48,7 @@ class VendedorExternoController extends Controller
             ]
         );
 
-        VendedorExterno::create([
+        VendedorInterno::create([
             'nombre' => $request->nombre,
             'password' => Hash::make($request->password),
             'email' => $request->email,
@@ -83,7 +83,7 @@ class VendedorExternoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $cliente = VendedorExterno::findOrFail($id);
+        $cliente = VendedorInterno::findOrFail($id);
 
         if($request->has('nombre')){
             $cliente->nombre = $request->nombre;
@@ -110,7 +110,7 @@ class VendedorExternoController extends Controller
         }
 
         if (!$cliente->isDirty()) {
-            return $this->redirectDirty($cliente, 'vendedor-externo');
+            return $this->redirectDirty($cliente, 'vendedor-interno');
         }
 
         $cliente->save();
@@ -121,9 +121,10 @@ class VendedorExternoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(VendedorExterno $vendedorExterno)
+    public function destroy(string $id)
     {
-        $vendedorExterno->delete();
+        $row = VendedorInterno::findOrFail($id);
+        $row->delete();
 
         return $this->redirectIndex($this->page);
     }
