@@ -49,11 +49,11 @@ class CotizacionController extends Controller
     {
         $auth = Auth::user();
 
-        $clientes = $auth->isAdmin
+        $usuarios = $auth->isAdmin
             ? User::select('id', 'nombre', 'email')->get()
             : User::select('id', 'nombre', 'email')->where('parent_user_id', $auth->id)->get();
 
-        $usuarios = $auth->isAdmin
+        $clientes = $auth->isAdmin
             ? Cliente::all()
             : [];
 
