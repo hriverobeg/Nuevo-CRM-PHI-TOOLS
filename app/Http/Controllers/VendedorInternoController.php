@@ -42,9 +42,7 @@ class VendedorInternoController extends Controller
                 'nombre' => 'required',
                 'password' => 'required',
                 'telefono' => 'required',
-                'empresa' => 'required',
-                'interes' => 'required',
-                'comisionPorcentaje' => 'required'
+                'empresa' => 'required'
             ]
         );
 
