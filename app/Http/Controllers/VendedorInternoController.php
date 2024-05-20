@@ -54,9 +54,7 @@ class VendedorInternoController extends Controller
             'email' => $request->email,
             'telefono' => $request->telefono,
             'empresa' => $request->empresa,
-            'nivel_id' => 4,
-            'interes' => $request->interes,
-            'comisionPorcentaje' => $request->comisionPorcentaje
+            'nivel_id' => 4
         ]);
 
         return $this->redirectIndex($this->page);
@@ -95,14 +93,6 @@ class VendedorInternoController extends Controller
 
         if($request->has('empresa')){
             $cliente->empresa = $request->empresa;
-        }
-
-        if($request->has('interes')){
-            $cliente->interes = $request->interes;
-        }
-
-        if($request->has('comisionPorcentaje')){
-            $cliente->comisionPorcentaje = $request->comisionPorcentaje;
         }
 
         if($request->has('password') && !empty($request->password)){
