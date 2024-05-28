@@ -52,7 +52,6 @@ document.addEventListener('alpine:init', () => {
     },
     onView(cotizacion) {
       if (cotizacion) {
-        console.log('hola', cotizacion.tipoActivo);
         this.row = cotizacion;
         this.isModalCotizacion = true;
       }

@@ -40,7 +40,7 @@ const Formulario = () => {
             <input type='hidden' name='isTelematics' value={form.isTelematics ? 1 : 0} />
             <input type='hidden' name='tituloCotizacion' value={form.tituloCotizacion} />
             <div className='grid grid-cols-1 gap-5 lg:grid-cols-2'>
-              {(nivel === 1 || nivel === 4) ? (
+              {(nivel === 1) ? (
                 <>
                   {!form.cliente_id && (
                     <Select
