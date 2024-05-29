@@ -9,10 +9,11 @@
   </li>
 </ul>
 <div class="flex gap-5 mb-5">
-    @if ($isAdmin)
-    <x-buttonhref :href="route('clientes.index')">Agregar usuario</x-buttonhref>
-    @else
+    @if ($nivelId == 1)
     <x-buttonhref :href="route('vendedor-externo.index')">Agregar vendedor externo</x-buttonhref>
+    <x-buttonhref :href="route('vendedor-interno.index')">Agregar vendedor interno</x-buttonhref>
+    @else
+    <x-buttonhref :href="route('clientes.index')">Agregar cliente</x-buttonhref>
     @endif
 </div>
 <div id="cotizacion"></div>
