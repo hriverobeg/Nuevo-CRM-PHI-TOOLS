@@ -18,9 +18,21 @@ class CotizacionResource extends JsonResource
 
         $extra = [
             'from_user' => new ClienteResource($this->from_user),
-            'to_user' => new ClienteResource($this->to_user)
+            'to_user' => new ClienteResource($this->to_user),
+            'fecha' => $this->created_at->format('d/m/Y'),
+            'tipoActivoNombre' => $this->nombreActivo($this->tipoActivo),
         ];
 
         return  array_merge($array, $extra);
+    }
+
+    public function nombreActivo($str) {
+        if ($str === 'V-std')
+            return 'Vehículo';
+        if ($str === 'B-std')
+            return 'Vehículo blindado';
+        if ($str === 'C-std')
+            return 'Equipo de computo';
+        return "otro";
     }
 }

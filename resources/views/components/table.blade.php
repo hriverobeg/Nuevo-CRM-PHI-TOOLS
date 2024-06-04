@@ -1,11 +1,15 @@
-@props(['titulo'])
+@props(['titulo', 'noForm' => false, 'clickAdd' => null])
 <div x-data="list">
 
   <x-modaldelete />
-  
-  <x-modalform>
+
+  @if (!$noForm)
+    <x-modalform>
+      {{ $slot }}
+    </x-modalform>
+  @else
     {{ $slot }}
-  </x-modalform>
+  @endif
 
   @if($errors->any())
   <div class="panel mb-5 flex items-center overflow-x-auto whitespace-nowrap p-3 text-danger">
@@ -18,13 +22,17 @@
     <span class="ltr:mr-3 rtl:ml-3">{{$errors->first()}}</a>
   </div>
   @endif
-  
-  <x-buttonadd @click="onForm()">Agregar</x-buttonadd>
+
+  @if ($clickAdd !== null)
+    <x-buttonadd href="{{ $clickAdd }}">Agregar</x-buttonadd>
+  @else
+    <x-buttonadd @click="onForm()">Agregar</x-buttonadd>
+  @endif
 
   <div x-data="striped">
     <div class="panel">
-      <h5 class="mb-5 text-lg font-semibold dark:text-white-light md:absolute md:top-[25px] md:mb-0">{{ $titulo }}</h5>    
-      <table id="tableStripe" class="table-striped"></table>
+      <h5 class="mb-5 text-lg font-semibold dark:text-white-light md:absolute md:top-[25px] md:mb-0">{{ $titulo }}</h5>
+      <table id="tableStripe" class="table-striped whitespace-nowrap"></table>
     </div>
   </div>
 </div>

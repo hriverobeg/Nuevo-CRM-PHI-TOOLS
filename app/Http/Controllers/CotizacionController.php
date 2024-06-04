@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\BoardResource;
+use App\Http\Resources\CotizacionResource;
 use App\Mail\CotizacionMail;
 use App\Models\Admin;
 use App\Models\Board;
@@ -24,20 +25,37 @@ class CotizacionController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function index()
+    // {
+    //     $auth = Auth::user();
+
+    //     if ($auth->isAdmin) {
+    //         $boards = Board::with('cotizaciones')->orderBy('id')->get();
+    //     } else {
+    //         $boards = Board::clientes($auth->id)->orderBy('id')->get();
+    //     }
+
+    //     $resource = BoardResource::collection($boards);
+
+    //     return view('pages.cotizaciones.wrapper', [
+    //         'boards' => $resource,
+    //         'isAdmin' => $auth->isAdmin
+    //     ]);
+    // }
     public function index()
     {
         $auth = Auth::user();
 
         if ($auth->isAdmin) {
-            $boards = Board::with('cotizaciones')->orderBy('id')->get();
+            $list = Cotizacion::orderBy('id')->get();
         } else {
-            $boards = Board::clientes($auth->id)->orderBy('id')->get();
+            $list = Cotizacion::where('from_user_id', $auth->id)->orderBy('id')->get();
         }
 
-        $resource = BoardResource::collection($boards);
+        $resource = CotizacionResource::collection($list);
 
-        return view('pages.cotizaciones.wrapper', [
-            'boards' => $resource,
+        return view('pages.cotizaciones.list', [
+            'list' => $resource,
             'isAdmin' => $auth->isAdmin
         ]);
     }
@@ -154,7 +172,7 @@ class CotizacionController extends Controller
             'from_user_id'                  => $auth->id,
             'board_id'                  => 1,
             'nombreActivo'              => $item->nombreActivo,
-            'anio'                      => $item->anio,
+            'anio'                      => $item->anio ?? 2024,
             'tituloCotizacion'          => $item->tituloCotizacion,
             'valorActivo'               => $item->valorActivo,
             'anticipo'                  => $item->anticipo ?? 0,
