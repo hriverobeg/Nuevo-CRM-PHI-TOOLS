@@ -47,9 +47,9 @@ class CotizacionController extends Controller
         $auth = Auth::user();
 
         if ($auth->isAdmin) {
-            $list = Cotizacion::orderBy('id')->get();
+            $list = Cotizacion::orderByDesc('id')->get();
         } else {
-            $list = Cotizacion::where('from_user_id', $auth->id)->orderBy('id')->get();
+            $list = Cotizacion::where('from_user_id', $auth->id)->orderByDesc('id')->get();
         }
 
         $resource = CotizacionResource::collection($list);
