@@ -56,8 +56,7 @@ const columnPDF = (select) => ({
     sortable: false,
     render: (data, cell, row) => {
         return `<div class="flex items-center">
-        <button x-show="isLoadingPdf" type="button" class="btn btn-primary btn-sm"><span class="animate-spin border-2 border-white border-l-transparent rounded-full w-5 h-5 ltr:mr-4 rtl:ml-4 inline-block align-middle"></span></button>
-            <button x-show="!isLoadingPdf" class="btn btn-primary btn-sm" @click="downloadPdfTable(${data})">
+            <button x-disabled="isLoadingPdf" class="btn btn-primary btn-sm" @click="downloadPdfTable(${data})">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
                     <path opacity="0.5" d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                     <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -76,8 +75,7 @@ const columnPDFGrupo = (select) => ({
         if (String(data).endsWith('null')) return null;
 
         return `<div class="flex items-center">
-        <button x-show="isLoadingPdf" type="button" class="btn btn-primary btn-sm"><span class="animate-spin border-2 border-white border-l-transparent rounded-full w-5 h-5 ltr:mr-4 rtl:ml-4 inline-block align-middle"></span></button>
-            <button x-show="!isLoadingPdf" class="btn btn-primary btn-sm" @click="downloadPdfTable(${data})">
+            <button x-disabled="isLoadingPdf" class="btn btn-primary btn-sm" @click="downloadPdfTable(${data})">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
                     <path opacity="0.5" d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                     <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
