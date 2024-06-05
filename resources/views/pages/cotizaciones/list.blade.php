@@ -21,6 +21,6 @@
       return '$' + numCalc.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
     }
 </script>
-<script src="/assets/js/table-cotizacion.js"></script>
+<script src="/assets/js/table-cotizacion.js?v=1.0.0"></script>
 @vite('resources/js/pdf/main.js')
 @endsection
